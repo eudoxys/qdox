@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools","pylint","tomllib"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -14,7 +14,7 @@ maintainers = [
     ]
 readme = "README.md"
 requires-python = ">= 3.11"
-dependencies = ["tomllib"]
+dependencies = ["tomli"]
 keywords = ["github","python","documentation"]
 license = {text="MIT License"}
 classifiers = [
