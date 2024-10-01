@@ -6,7 +6,7 @@ Options:
 
     * -: run with no options
 
-    * --main.DEBUG: Enable debugging traceback on exceptions
+    * --debug: Enable debugging traceback on exceptions
 
     * -h|--help|help: Display this help information
 
@@ -110,14 +110,14 @@ def main(argv:list[str]=sys.argv):
 
     for arg in argv[1:]:
         key,value = arg.split("=",1) if "=" in arg else (arg,None)
-        if arg == "--main.DEBUG":
+        if arg == "--debug":
             main.DEBUG = True
         elif key == "--withcss":
             withcss = value if value else "quickdocs.css"
         elif arg != "-":
             raise CommandError(f"invalid option '{arg}'")
 
-    with open("pyproject.toml","rb",encoding="utf-8") as fh:
+    with open("pyproject.toml","rb") as fh:
         package = tomllib.load(fh)["project"]
         for item,key in {"authors":"name","maintainers":"name"}.items():
             package[item] = ",".join([x[key] for x in package[item]])
@@ -382,6 +382,6 @@ if __name__ == "__main__":
     except Exception:
         e_type,e_value,e_trace = sys.exc_info()
         print(f"ERROR [{os.path.basename(sys.argv[0])[:-2] + e_type.__name__}]:" +
-            " {e_value}",file=sys.stderr)
+            f" {e_value}",file=sys.stderr)
         if main.DEBUG:
             raise
