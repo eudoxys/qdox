@@ -1,0 +1,107 @@
+<!doctype html>
+    <html>
+    <head>
+        <title>Quickdocs</title>
+        <meta name="expires" content="86400" />
+        <link rel="stylesheet" href="../quickdocs.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:180px">
+      <center>
+        <img src="https://avatars.githubusercontent.com/u/20801735?v=4" height="128px" width="128px"/>
+        <br/><a href="https://www.chassin.org/">David P. Chassin</a>
+        <br/><a href="https://www.eudoxys.com/">Eudoxys Sciences LLC</a>
+      </center>
+      <title class="w3-bar-item">Quickdocs</title>
+      <a href="#main" class="w3-bar-item w3-button">Command Line</a>
+      <a href="#python" class="w3-bar-item w3-button">Python Library</a>
+      <a href="#package" class="w3-bar-item w3-button">Package Metadata</a>
+    </div>
+
+    <!-- Page Content -->
+    <div style="margin-left:220px">
+
+    <h1 id="main" class="w3-container">Command Line</h1>
+
+    <p/>
+Generate docs/index.html from module and README.md
+<p/>Syntax: <code>quickdocs [OPTION ...]</code><p/>
+<h2 class="w3-container">Options</h2>
+<p/><ul><li>
+<code>-</code>:  run with no options</li><li>
+<code>--debug</code>:  Enable debugging traceback on exceptions</li><li>
+<code>-h|--help|help</code>:  Display this help information</li><li>
+<code>--withcss</code>:  Generate a template CSS file also</li></li>
+</ul>
+
+<h2 class="w3-container">Description</h2>
+<p/>The <code>quickdocs</code> script generates the documentation for a simple Python project.
+<p/>The script loads the module specified in the <code>pyproject.toml</code> file and outputs
+the <code>__doc__</code> property of the module. It then documents the python function
+and constants, followed by the project metadata.
+<p/>
+<h2 class="w3-container">Usage</h2>
+<p/>To use <code>quickdocs</code> in a project you must do the following.
+<p/><ol><li> Install <code>quickdocs</code> from the repo in the current <code>venv</code> by running the</li>  command   <pre>python3 -m pip install git+<a href="https://github.com/dchassin/quickdocs" target="_tab">https://github.com/dchassin/quickdocs</a></pre>   <li> Run <code>quickdocs</code> in the project root folder by running the command</li>  <pre>python3 -m quickdocs</pre>    If you want to include the CSS file, use the option <code>--withcss</code>  <li> Add/push the new files to GitHub by running the commands </li>  <pre>git commit -a -m "Add docs"git push</pre></li>
+</ol>
+
+<h2 class="w3-container">Text Formatting</h2>
+<p/>Text encoding includes the following
+<p/><ul><li>
+<code><code>Syntax</code>:  text</code>: Syntax text</li><li>
+<code><code>text</code>: </code>: Level 2 heading text in module docs or level 3 in function docs</li><li>
+<code><code>(blank line)</code></code>:  New paragraph</li><li>
+<code><code>(four spaces)text</code></code>:  Preformatted text</li><li>
+<code><code>(four spaces)*(space)text</code></code>:  Bulleted list text</li><li>
+<code><code>(four spaces)(digit)(space)text</code></code>:  Numbered list item</li><li>
+<code><code>(seven spaces)text</code></code>:  List item text continuation</li><li>
+<code><code>(nine spaces)text</code></code>:  Preformatted text in a list item</li><li>
+<code><code>**text**</code></code>:  <b>Bold</b> text</li><li>
+<code><code>*text*</code></code>:  <i>Italic</i> text<pre>
+</pre></li><li>
+<code><code>!!text!!</code></code>:  <font class="highlight">Highlight</font> text</li><li>
+<code><code>~~text~~</code></code>:  <strike>strikeout</strike> text</li><li>
+<code><code>__text__</code></code>:  <u>underline</u> text</li><li>
+<code><code>^word</code></code>:  <sup>superscript</sup> word (ends at space)</li><li>
+<code><code>word</code></code>:  <sub>subscript</sub> word (ends at space)</li><li>
+<code>`text`</code>:  <code>code</code> text</li><li>
+<code><code>protocol</code>: //url/</code>: <a href="protocol://url/" target="_tab">protocol://url/</a> formatting with active link</li></li>
+</ul>
+
+<h1 id="python" class="w3-container">Python Library</h1>
+
+<h2 class="w3-container"><code><b>CommandError</b>() &rightarrow; <i>None</i></code></h2>
+<p/>Error caused by an invalid or missing command line option
+
+<h2 class="w3-container"><code><b>main</b>(<b>argv</b>:<i>list</i>) &rightarrow; <i>None</i></code></h2>
+<p/>Main CLI
+<p/><h3 class="w3-container">Arguments</h3>
+<ul><li><code>argv (list[str])</code>:  argument list (default is sys.argv)</li>
+</li>
+</ul>
+<h3 class="w3-container">Returns</h3>
+<ul><li><code>int</code>:  exit code</li>
+</li>
+</ul>
+<p/>    
+
+<h1 id="package" class="w3-container">Package Metadata</h1>
+<p/><table class="w3-container">
+<tr><th><nobr>Name</nobr></th><td>:</td><td>quickdocs</td></tr>
+<tr><th><nobr>Version</nobr></th><td>:</td><td>0.0.0a0</td></tr>
+<tr><th><nobr>Description</nobr></th><td>:</td><td>Generate quick documentation for a Python project on GitHub</td></tr>
+<tr><th><nobr>Authors</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>
+<tr><th><nobr>Maintainers</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>
+<tr><th><nobr>Requires-Python</nobr></th><td>:</td><td>>= 3.11</td></tr>
+<tr><th><nobr>Dependencies</nobr></th><td>:</td><td>None</td></tr>
+<tr><th><nobr>Keywords</nobr></th><td>:</td><td>github<br/>python<br/>documentation</td></tr>
+<tr><th><nobr>License</nobr></th><td>:</td><td>MIT License</td></tr>
+<tr><th><nobr>Classifiers</nobr></th><td>:</td><td>Development Status :: 3 - Alpha<br/>Intended Audience :: Developers<br/>License :: OSI Approved :: MIT License<br/>Programming Language :: Python :: 3 :: Only<br/>Topic :: Software Development :: Libraries</td></tr>
+<tr><th><nobr>Urls</nobr></th><td>:</td><td>Homepage = <a href="https://github.com/dchassin/quickdocs" target="_tab">https://github.com/dchassin/quickdocs</a><br/>Documentation = <a href="https://quickdocs.gitub.io/" target="_tab">https://quickdocs.gitub.io/</a><br/>Repository = <a href="https://github.com/dchassin/quickdocs.git" target="_tab">https://github.com/dchassin/quickdocs.git</a><br/>Issues = <a href="https://github.com/dchassin/quickdocs/issues" target="_tab">https://github.com/dchassin/quickdocs/issues</a></td></tr>
+</table>
+<hr/><p/><cite>Copyright &copy; 2024 David P. Chassin</body>
+            </html>

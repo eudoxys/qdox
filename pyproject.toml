@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quickdocs"
+version = "0.0.0a0"
+description = "Generate quick documentation for a Python project on GitHub"
+authors = [
+    {name = "David P. Chassin <dpchassin@gmail.com>"},
+    ]
+maintainers = [
+    {name = "David P. Chassin <dpchassin@gmail.com>"},
+    ]
+readme = "README.md"
+requires-python = ">= 3.11"
+dependencies = [] # should match requirements.txt
+keywords = ["github","python","documentation"]
+license = {text="MIT License"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries",
+    ]
+
+[project.urls]
+Homepage = "https://github.com/dchassin/quickdocs"
+Documentation = "https://quickdocs.gitub.io/"
+Repository = "https://github.com/dchassin/quickdocs.git"
+Issues = "https://github.com/dchassin/quickdocs/issues"
+
+[project.scripts]
+quickdocs = "quickdocs:main"

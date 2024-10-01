@@ -1,0 +1,2 @@
+# quickdocs
+ Quick documentation generator
