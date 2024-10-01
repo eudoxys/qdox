@@ -312,8 +312,7 @@ def main(argv:list[str]=sys.argv):
             if callable(value):
                 if isinstance(value.__doc__,str):
                     write_html(f"""\n<h2 class="w3-container"><code><b>{name}</b>(""")
-                    args = [f"<b>{str(a)}</b>:{re.sub(r'([A-Za-z]+)',r'<i>\1</i>',
-                        b.__name__ if hasattr(b,"__name__") else str(b))}"
+                    args = [f"<b>{str(a)}</b>:{re.sub(r'([A-Za-z]+)',r'<i>\1</i>',b.__name__ if hasattr(b,"__name__") else str(b))}"
                         for a,b in value.__annotations__.items() if a != "return"]
                     write_html(", ".join(args))
                     write_html(")")
