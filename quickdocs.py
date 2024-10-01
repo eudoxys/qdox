@@ -76,6 +76,12 @@ Text Formatting:
     * `protocol://url/`: protocol://url/ formatting with active link
 """
 
+#
+# Disable link warnings for now
+#
+# pylint: disable=R0914,R1702,R0912,R0915,W0718
+#
+
 import os
 import sys
 import importlib
