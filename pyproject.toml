@@ -27,7 +27,7 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/dchassin/quickdocs"
-Documentation = "https://quickdocs.gitub.io/"
+Documentation = "https://www.chassin.org/quickdocs/"
 Repository = "https://github.com/dchassin/quickdocs.git"
 Issues = "https://github.com/dchassin/quickdocs/issues"
 
