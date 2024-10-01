@@ -15,7 +15,7 @@ jobs:
 
     - name: Lint
       run: |
-        sudo python3 -m pip install --user pip --upgrade pylint
+        python3 -m pip install --user pip --upgrade pylint
         pylint quickdocs.py
 
     - name: Validate
