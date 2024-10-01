@@ -6,7 +6,7 @@ Options:
 
     * -: run with no options
 
-    * --debug: Enable debugging traceback on exceptions
+    * --main.DEBUG: Enable debugging traceback on exceptions
 
     * -h|--help|help: Display this help information
 
@@ -76,17 +76,16 @@ Text Formatting:
     * `protocol://url/`: protocol://url/ formatting with active link
 """
 
-import os, sys
+import os
+import sys
 import importlib
 import tomllib
-import json
 import re
 import datetime as dt
 import shutil
 
 class CommandError(Exception):
     """Error caused by an invalid or missing command line option"""
-    pass
 
 def main(argv:list[str]=sys.argv):
     """Main CLI
@@ -99,31 +98,31 @@ def main(argv:list[str]=sys.argv):
     """
 
     main.DEBUG = False
-    main.WITHCSS = False
+    withcss = False
 
     if len(sys.argv) == 1:
         print([x for x in __doc__.split("\n") if x.startswith("Syntax: ")][0])
         return 0
 
-    elif sys.argv[1] in ["-h","--help","help"]:
+    if sys.argv[1] in ["-h","--help","help"]:
         print(__doc__)
         return 1
 
     for arg in argv[1:]:
         key,value = arg.split("=",1) if "=" in arg else (arg,None)
-        if arg == "--debug":
+        if arg == "--main.DEBUG":
             main.DEBUG = True
         elif key == "--withcss":
-            main.WITHCSS = value if value else "quickdocs.css"
+            withcss = value if value else "quickdocs.css"
         elif arg != "-":
             raise CommandError(f"invalid option '{arg}'")
 
-    with open("pyproject.toml","rb") as fh:
+    with open("pyproject.toml","rb",encoding="utf-8") as fh:
         package = tomllib.load(fh)["project"]
         for item,key in {"authors":"name","maintainers":"name"}.items():
             package[item] = ",".join([x[key] for x in package[item]])
         for item,key in {"license":"text"}.items():
-            package[item] = package[item][key]        
+            package[item] = package[item][key]
         for item in ["keywords","classifiers","urls","dependencies"]:
             if isinstance(package[item],dict):
                 package[item] = "<br/>".join([f"{x} = {y}" for x,y in package[item].items()])
@@ -132,8 +131,8 @@ def main(argv:list[str]=sys.argv):
             if not package[item]:
                 package[item] = "None"
         for item in list(package):
-            if item not in ["name","version","description","authors","maintainers","requires-python",
-                    "dependencies","keywords","license","classifiers","urls"]:
+            if item not in ["name","version","description","authors","maintainers",
+                "requires-python","dependencies","keywords","license","classifiers","urls"]:
                 del package[item]
 
     module = importlib.import_module(package["name"])
@@ -141,7 +140,7 @@ def main(argv:list[str]=sys.argv):
 
     os.makedirs("docs",exist_ok=True)
 
-    with open("docs/index.html","w") as html:
+    with open("docs/index.html","w",encoding="utf-8") as html:
 
         def write_html(text,md=True,nl=False):
             if md:
@@ -149,7 +148,8 @@ def main(argv:list[str]=sys.argv):
                     # False indicates result is protected from remaining rules once applied
                     r"``": (r"`",False),
                     r"`([^`]+)`": (r"<code>\1</code>",False),
-                    r"([a-z]+)://([A-Za-z0-9/.:@+_?&]+)": (r"""<a href="\1://\2" target="_tab">\1://\2</a>""",False),
+                    r"([a-z]+)://([A-Za-z0-9/.:@+_?&]+)": 
+                        (r"""<a href="\1://\2" target="_tab">\1://\2</a>""",False),
                     r"\*\*([^\*]+)\*\*": (r"<b>\1</b>",True),
                     r"\*([^\*]+)\*": (r"<i>\1</i>",True),
                     r"~~([^\+]+)~~": (r"<strike>\1</strike>",True),
@@ -261,7 +261,7 @@ def main(argv:list[str]=sys.argv):
                     write_html(f"{line[9:]}")
 
                 # list text
-                else: 
+                else:
                     set_mode(get_mode())
                     write_html(line[5:])
 
@@ -312,16 +312,19 @@ def main(argv:list[str]=sys.argv):
             if callable(value):
                 if isinstance(value.__doc__,str):
                     write_html(f"""\n<h2 class="w3-container"><code><b>{name}</b>(""")
-                    args = [f"<b>{str(a)}</b>:{re.sub(r'([A-Za-z]+)',r'<i>\1</i>',b.__name__ if hasattr(b,"__name__") else str(b))}" for a,b in value.__annotations__.items() if a != "return"]
+                    args = [f"<b>{str(a)}</b>:{re.sub(r'([A-Za-z]+)',r'<i>\1</i>',
+                        b.__name__ if hasattr(b,"__name__") else str(b))}"
+                        for a,b in value.__annotations__.items() if a != "return"]
                     write_html(", ".join(args))
                     write_html(")")
                     try:
                         c = value.__annotations__["return"]
-                        write_html(f" &rightarrow; *{c.__name__ if hasattr(c,"__name__") else str(c)}*")
-                    except:
-                        write_html(f" &rightarrow; *None*")
+                        c = c.__name__ if hasattr(c,"__name__") else str(c)
+                        write_html(f" &rightarrow; *{c}*")
+                    except KeyError:
+                        write_html(" &rightarrow; *None*")
                     write_html("</code></h2>\n")
-                    
+
                     for line in value.__doc__.split("\n"):
                         if len(line) == 0:
                             if get_mode() is None:
@@ -359,7 +362,8 @@ def main(argv:list[str]=sys.argv):
         write_html("""<p/><table class="w3-container">\n""")
         for key,data in package.items():
             if not key.startswith("Description"):
-                write_html(f"<tr><th><nobr>{key.title()}</nobr></th><td>:</td><td>{data}</td></tr>\n")
+                write_html(f"<tr><th><nobr>{key.title()}</nobr></th><td>:</td><td>{data}" +
+                    "</td></tr>\n")
         write_html("</table>\n")
 
         # footer
@@ -368,16 +372,16 @@ def main(argv:list[str]=sys.argv):
         write_html("""</body>
             </html>""",nl=True)
 
-    if main.WITHCSS:
-        shutil.copy(main.WITHCSS,"docs/quickdocs.css")
+    if withcss:
+        shutil.copy(withcss,"docs/quickdocs.css")
 
 
 if __name__ == "__main__":
     try:
         main()
-    # pylint: disable-next=W0718
     except Exception:
         e_type,e_value,e_trace = sys.exc_info()
-        print(f"ERROR [{os.path.basename(sys.argv[0])[:-2] + e_type.__name__}]: {e_value}",file=sys.stderr)
+        print(f"ERROR [{os.path.basename(sys.argv[0])[:-2] + e_type.__name__}]:" +
+            " {e_value}",file=sys.stderr)
         if main.DEBUG:
             raise
