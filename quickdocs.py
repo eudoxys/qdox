@@ -31,7 +31,7 @@ To use `quickdocs` in a project you must do the following.
         
     2. Run `quickdocs` in the project root folder by running the command
        
-         python3 -m quickdocs
+         python3 -m quickdocs -
        
        If you want to include the CSS file, use the option `--withcss`
        
@@ -82,6 +82,7 @@ import tomllib
 import json
 import re
 import datetime as dt
+import shutil
 
 class CommandError(Exception):
     """Error caused by an invalid or missing command line option"""
@@ -109,15 +110,13 @@ def main(argv:list[str]=sys.argv):
         return 1
 
     for arg in argv[1:]:
+        key,value = arg.split("=",1) if "=" in arg else (arg,None)
         if arg == "--debug":
             main.DEBUG = True
-        elif arg == "--withcss":
-            main.WITHCSS = True
+        elif key == "--withcss":
+            main.WITHCSS = value if value else "quickdocs.css"
         elif arg != "-":
             raise CommandError(f"invalid option '{arg}'")
-
-    main.DEBUG = "--debug" in sys.argv
-    main.WITHCSS = "--withcss" in sys.argv
 
     with open("pyproject.toml","rb") as fh:
         package = tomllib.load(fh)["project"]
@@ -368,6 +367,10 @@ def main(argv:list[str]=sys.argv):
 
         write_html("""</body>
             </html>""",nl=True)
+
+    if main.WITHCSS:
+        shutil.copy(main.WITHCSS,"docs/quickdocs.css")
+
 
 if __name__ == "__main__":
     try:
