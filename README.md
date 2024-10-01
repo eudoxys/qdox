@@ -1,3 +1,6 @@
+[![Validate main](https://github.com/dchassin/quickdocs/actions/workflows/validate-main.yaml/badge.svg)](https://github.com/dchassin/quickdocs/actions/workflows/validate-main.yaml)
+[![pages-build-deployment](https://github.com/dchassin/quickdocs/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/dchassin/quickdocs/actions/workflows/pages/pages-build-deployment)
+
 # quickdocs
 
 Quick documentation generator.
