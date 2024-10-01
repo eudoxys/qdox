@@ -60,3 +60,7 @@ code {
 code:hover {
     background-color: lightblue;
 }
+
+pre:hover {
+    background-color: lightblue;
+}

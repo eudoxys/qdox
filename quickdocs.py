@@ -14,17 +14,17 @@ Options:
 
 Description:
 
-The `quickdocs` script generates the documentation for a simple Python project.
+  The `quickdocs` script generates the documentation for a simple Python project.
 
-The script loads the module specified in the `pyproject.toml` file and outputs
-the `__doc__` property of the module. It then documents the python function
-and constants, followed by the project metadata.
+  The script loads the module specified in the `pyproject.toml` file and
+  outputs the `__doc__` property of the module. It then documents the python
+  function and constants, followed by the project metadata.
 
 Usage:
 
-To use `quickdocs` in a project you must do the following.
+  To use `quickdocs` in a project you must do the following.
 
-    1. Install `quickdocs` from the repo in the current `venv` by running the
+    1. Install `quickdocs` from the repo into the current `venv` by running the
        command 
        
          python3 -m pip install git+https://github.com/dchassin/quickdocs
@@ -42,7 +42,7 @@ To use `quickdocs` in a project you must do the following.
 
 Text Formatting:
 
-Text encoding includes the following
+  Text encoding includes the following
 
     * `Syntax: text`: Syntax text
 

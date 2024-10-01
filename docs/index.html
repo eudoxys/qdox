@@ -39,18 +39,18 @@ Generate docs/index.html from module and README.md
 </ul>
 
 <h2 class="w3-container">Description</h2>
-<p/>The <code>quickdocs</code> script generates the documentation for a simple Python project.
-<p/>The script loads the module specified in the <code>pyproject.toml</code> file and outputs
-the <code>__doc__</code> property of the module. It then documents the python function
-and constants, followed by the project metadata.
+<p/>  The <code>quickdocs</code> script generates the documentation for a simple Python project.
+<p/>  The script loads the module specified in the <code>pyproject.toml</code> file and
+  outputs the <code>__doc__</code> property of the module. It then documents the python
+  function and constants, followed by the project metadata.
 <p/>
 <h2 class="w3-container">Usage</h2>
-<p/>To use <code>quickdocs</code> in a project you must do the following.
-<p/><ol><li> Install <code>quickdocs</code> from the repo in the current <code>venv</code> by running the</li>  command   <pre>python3 -m pip install git+<a href="https://github.com/dchassin/quickdocs" target="_tab">https://github.com/dchassin/quickdocs</a></pre>   <li> Run <code>quickdocs</code> in the project root folder by running the command</li>  <pre>python3 -m quickdocs -</pre>    If you want to include the CSS file, use the option <code>--withcss</code>  <li> Add/push the new files to GitHub by running the commands </li>  <pre>git commit -a -m "Add docs"git push</pre></li>
+<p/>  To use <code>quickdocs</code> in a project you must do the following.
+<p/><ol><li> Install <code>quickdocs</code> from the repo into the current <code>venv</code> by running the</li>  command   <pre>python3 -m pip install git+<a href="https://github.com/dchassin/quickdocs" target="_tab">https://github.com/dchassin/quickdocs</a></pre>   <li> Run <code>quickdocs</code> in the project root folder by running the command</li>  <pre>python3 -m quickdocs -</pre>    If you want to include the CSS file, use the option <code>--withcss</code>  <li> Add/push the new files to GitHub by running the commands </li>  <pre>git commit -a -m "Add docs"git push</pre></li>
 </ol>
 
 <h2 class="w3-container">Text Formatting</h2>
-<p/>Text encoding includes the following
+<p/>  Text encoding includes the following
 <p/><ul><li>
 <code><code>Syntax</code>:  text</code>: Syntax text</li><li>
 <code><code>text</code>: </code>: Level 2 heading text in module docs or level 3 in function docs</li><li>
