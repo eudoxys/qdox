@@ -14,7 +14,7 @@ maintainers = [
     ]
 readme = "README.md"
 requires-python = ">= 3.11"
-dependencies = [] # should match requirements.txt
+dependencies = ["tomllib"]
 keywords = ["github","python","documentation"]
 license = {text="MIT License"}
 classifiers = [
