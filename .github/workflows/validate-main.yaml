@@ -14,7 +14,9 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Lint
-      run: pylint magic_guid/__init__.py
+      run: |
+        sudo python3 -m pip install pip --upgrade pylint
+        pylint magic_guid/__init__.py
 
     - name: Validate
       run: python3 -m quickdocs --withcss

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools","pylint"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
