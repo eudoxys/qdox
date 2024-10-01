@@ -1,6 +1,10 @@
 # quickdocs
 
-Quick documentation generator
+Quick documentation generator.
+
+## Documentation
+
+See http://www.chassin.org/quickdocs for full documentation.
 
 ## Updating
 
