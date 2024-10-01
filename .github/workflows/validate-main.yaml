@@ -15,8 +15,8 @@ jobs:
 
     - name: Lint
       run: |
-        sudo python3 -m pip install pip --upgrade pylint
-        pylint magic_guid/__init__.py
+        sudo python3 -m pip install --user pip --upgrade pylint
+        pylint quickdocs.py
 
     - name: Validate
       run: python3 -m quickdocs --withcss
