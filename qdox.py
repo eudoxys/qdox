@@ -267,7 +267,7 @@ def _main(argv:list[str]=sys.argv) -> int:
       <center>
         <img src="{github_data['avatar_url']}" height="128px" width="128px"/>
         <br/><a href="{github_data['html_url']}">{github_data['name']}</a>
-        <br/><a href="https://github.com/{org}">{github_data['company']}</a>
+        <br/><a href="https://github.com/{org}">{github_data['company'] if 'company' in github_data and github_data['company'] else ''}</a>
       </center>
       <title class="w3-bar-item">{package['name']}</title>
       <a href="#main" class="w3-bar-item w3-button">Command Line</a>
