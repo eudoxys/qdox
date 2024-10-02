@@ -10,7 +10,7 @@ Options:
 
     * -h|--help|help: Display this help information
 
-    * --withcss[=CSSFILE]: Copy the CSS file to `docs/` (defauls is `quickdocs.css`)
+    * --withcss[=CSSFILE]: Copy the CSS file to `docs/` (default is `quickdocs.css`)
 
 Description:
 
