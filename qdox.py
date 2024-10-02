@@ -372,17 +372,18 @@ def _main(argv:list[str]=sys.argv) -> int:
                                 write_html("<p/>")
                         elif line.startswith("    ") and line.strip().endswith(":"):
                             set_mode(None)
-                            write_html(f"""<h3 class="w3-container">{line.strip()[:-1]}</h3>\n""")
+                            write_html(f"""<h3 class="w3-container">{line.strip()[:-1]}</h3>""",nl=True)
                         elif line.startswith("        "):
                             set_mode("ul")
                             part = line.strip().split(":",1)
                             if len(part) == 2:
-                                write_html(f"<li><code>{part[0]}</code>: {part[1]}</li>\n",md=False)
+                                write_html(f"<li><code>{part[0]}</code>: ",md=False,nl=False)
+                                write_html(f"{part[1]}</li>",nl=True)
                             else:
-                                write_html(f"<li>{part[0]}</li>\n",md=False)
+                                write_html(f"<li>{part[0]}</li>",md=True,nl=True)
                         else:
                             set_mode(None)
-                            write_html(f"{line}\n")
+                            write_html(f"{line}",md=True,nl=True)
                 else:
                     print(f"WARNING: function '{name}' has no __doc__")
             set_mode(None)
