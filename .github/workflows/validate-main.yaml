@@ -16,7 +16,9 @@ jobs:
     - name: Lint
       run: |
         python3 -m pip install --user pip --upgrade pylint
-        pylint quickdocs.py
+        pylint qdox.py
 
     - name: Validate
-      run: python3 -m quickdocs --withcss
+      run: |
+        python3 -m pip install .
+        qdox --withcss
