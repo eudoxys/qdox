@@ -11,7 +11,7 @@ jobs:
   validate-matrix:
     strategy:
       matrix:
-        os-version: [ubuntu-22.04, ubuntu-24.04, windows-2022, macos-14, macos-15]
+        os-version: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15]
         python-version: [3.11, 3.12]
 
     runs-on: ${{ matrix.os-version }}
@@ -26,6 +26,34 @@ jobs:
       run: |
         python3 -m venv .venv
         source .venv/bin/activate
+        python3 -m pip install pip --upgrade pylint
+        pylint qdox.py
+
+    - name: Validate
+      run: |
+        python3 -m pip install .
+        mv docs/index.html docs/validate.html
+        python3 -m qdox --withcss
+        diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr && false)
+
+  validate-matrix:
+    strategy:
+      matrix:
+        os-version: [windows-2022]
+        python-version: [3.11, 3.12]
+
+    runs-on: ${{ matrix.os-version }}
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Lint
+      run: |
+        python3 -m venv .venv
+        .venv/bin/activate
         python3 -m pip install pip --upgrade pylint
         pylint qdox.py
 
