@@ -115,19 +115,19 @@ def _get_json(*args,**kwargs):
         with requests.get(*args,**kwargs,timeout=60) as res:
             if res.status_code == 200:
                 return json.loads(res.text)
-            qargs = ",".join([repr(x) for x in args]) + \
-                ",".join([f"{str(x)}={repr(y)}" for x,y in kwargs.items()])
+            qargs = [repr(x) for x in args] + \
+                [f"{str(x)}={repr(y)}" for x,y in kwargs.items()]
             return {
                 "error": "request failed", 
-                "message": f"requests.get({qargs}) -> StatusCode={res.status_code}",
+                "message": f"requests.get({','.join(qargs)}) -> StatusCode={res.status_code}",
                 }
     except:
         e_type, e_name, _ = sys.exc_info()
-        qargs = ",".join([repr(x) for x in args]) + \
-            ",".join([f"{str(x)}={repr(y)}" for x,y in kwargs.items()])
+        qargs = [repr(x) for x in args] + \
+            [f"{str(x)}={repr(y)}" for x,y in kwargs.items()]
         return {
             "error": "request failed", 
-            "message": f"requests.get({qargs}) -> {e_type.__name__}={e_name}",
+            "message": f"requests.get({','.join(qargs)}) -> {e_type.__name__}={e_name}",
             }
 
 class QdoxError(Exception):
