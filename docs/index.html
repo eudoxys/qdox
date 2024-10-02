@@ -3,7 +3,7 @@
     <head>
         <title>Quickdocs</title>
         <meta name="expires" content="86400" />
-        <link rel="stylesheet" href="quickdocs.css">
+        <link rel="stylesheet" href="mystyles.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
@@ -46,7 +46,7 @@ Generate docs/index.html from module and README.md
 <p/>
 <h2 class="w3-container">Usage</h2>
 <p/>  To use <code>quickdocs</code> in a project you must do the following.
-<p/><ol><li> Install <code>quickdocs</code> from the repo into the current <code>venv</code> by running the</li>  command   <pre>python3 -m pip install git+<a href="https://github.com/dchassin/quickdocs" target="_tab">https://github.com/dchassin/quickdocs</a></pre>   <li> Run <code>quickdocs</code> in the project root folder by running the command</li>  <pre>python3 -m quickdocs -</pre>    If you want to include the CSS file, use the option <code>--withcss</code>  <li> Add/push the new files to GitHub by running the commands </li>  <pre>git commit -a -m "Add docs"git push</pre></li>
+<p/><ol><li> Install <code>quickdocs</code> from the repo into the current <code>venv</code> by running the</li>  command   <pre>python3 -m pip install git+<a href="https://github.com/dchassin/quickdocs" target="_tab">https://github.com/dchassin/quickdocs</a></pre>   <li> Run <code>quickdocs</code> in the project root folder by running the command</li>  <pre>quickdocs -</pre>    If you want to include a CSS file, use the option <code>--withcss=file.css</code>, e.g.,  <pre>quickdocs --withcss=mystyles.css</pre>  <li> Add/push the new files to GitHub by running the commands </li>  <pre>git commit -a -m "Add docs"git push</pre></li>
 </ol>
 
 <h2 class="w3-container">Text Formatting</h2>

@@ -33,7 +33,9 @@ Usage:
        
          quickdocs -
        
-       If you want to include the CSS file, use the option `--withcss`
+       If you want to include a CSS file, use the option `--withcss=file.css`, e.g.,
+       
+         quickdocs --withcss=mystyles.css
        
     3. Add/push the new files to GitHub by running the commands 
        
@@ -389,11 +391,11 @@ def main(argv:list[str]=sys.argv):
 
 if __name__ == "__main__":
     try:
-        sys.exit(main())
+        exit(main())
     except Exception:
         e_type,e_value,e_trace = sys.exc_info()
         print(f"ERROR [{os.path.basename(sys.argv[0])[:-2] + e_type.__name__}]:" +
-            f" {e_value}",file=sys.stderr)
+            f" {e_value}",file=sys.stderr,flush=True)
         if main.DEBUG:
             raise
-        sys.exit(E_ERROR)
+        exit(E_ERROR)
