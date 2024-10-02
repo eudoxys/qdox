@@ -8,98 +8,19 @@ on:
 
 jobs:
 
-  validate-ubuntu22_x64-python3_11:
-    runs-on: ubuntu-22.04
+  validate-matrix:
+    strategy:
+      matrix:
+        os-version: [ubuntu-22.04, ubuntu-24.02, windows-2022]
+        python-version: [3.11, 3.12]
+
+    runs-on: ${{ matrix.os-version }}
 
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
-
-    - name: Lint
-      run: |
-        python3 -m pip install --user pip --upgrade pylint
-        pylint qdox.py
-
-    - name: Validate
-      run: |
-        python3 -m pip install .
-        mv docs/index.html docs/validate.html
-        python3 -m qdox --withcss
-        diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr;false)
-
-  validate-ubuntu22_x64-python3_12:
-    runs-on: ubuntu-22.04
-
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-
-    - name: Lint
-      run: |
-        python3 -m pip install --user pip --upgrade pylint
-        pylint qdox.py
-
-    - name: Validate
-      run: |
-        python3 -m pip install .
-        mv docs/index.html docs/validate.html
-        python3 -m qdox --withcss
-        diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr;false)
-
-  validate-ubuntu24_x64-python3_11:
-    runs-on: ubuntu-24.04
-
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
-    - name: Lint
-      run: |
-        python3 -m pip install --user pip --upgrade pylint
-        pylint qdox.py
-
-    - name: Validate
-      run: |
-        python3 -m pip install .
-        mv docs/index.html docs/validate.html
-        python3 -m qdox --withcss
-        diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr;false)
-
-  validate-ubuntu24_x64-python3_12:
-    runs-on: ubuntu-24.04
-
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-
-    - name: Lint
-      run: |
-        python3 -m pip install --user pip --upgrade pylint
-        pylint qdox.py
-
-    - name: Validate
-      run: |
-        python3 -m pip install .
-        mv docs/index.html docs/validate.html
-        python3 -m qdox --withcss
-        diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr;false)
-
-  validate-ubuntu24_x64-python3_13:
-    runs-on: ubuntu-24.04
-
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.13'
+        python-version: ${{ matrix.python-version }}
 
     - name: Lint
       run: |
