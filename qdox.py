@@ -174,6 +174,8 @@ def _main(argv:list[str]=sys.argv) -> int:
 
     org = homepage.split("/")[-2]
     github_data = _get_json(f"https://api.github.com/users/{org}")
+    if "error" in github_data:
+        raise QdoxError(github_data["message"])
 
     os.makedirs("docs",exist_ok=True)
 
