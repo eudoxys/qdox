@@ -26,4 +26,4 @@ jobs:
         python3 -m pip install .
         mv docs/index.html docs/validate.html
         python3 -m qdox --withcss
-        diff docs/index.html docs/validate.html || (echo 'Error: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr;false)
+        diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr;false)
