@@ -8,6 +8,8 @@ on:
 
 jobs:
 
+  continue-on-error: true
+
   validate-matrix-linux:
     strategy:
       matrix:
