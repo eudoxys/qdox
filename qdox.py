@@ -1,4 +1,4 @@
-"""Generate docs/index.html from module and README.md
+"""Generate docs/index.html from module contents and metadata
 
 Syntax: qdox [OPTION ...]
 
