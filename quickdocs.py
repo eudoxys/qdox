@@ -10,7 +10,7 @@ Options:
 
     * -h|--help|help: Display this help information
 
-    * --withcss: Generate a template CSS file also
+    * --withcss[=CSSFILE]: Copy the CSS file to `docs/` (defauls is `quickdocs.css`)
 
 Description:
 
@@ -222,7 +222,7 @@ def main(argv:list[str]=sys.argv):
     <head>
         <title>{package_name}</title>
         <meta name="expires" content="86400" />
-        <link rel="stylesheet" href="quickdocs.css">
+        <link rel="stylesheet" href="{withcss if withcss else 'quickdocs.css'}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
