@@ -366,7 +366,7 @@ def main(argv:list[str]=sys.argv):
                 if not constant_header:
                     write_html("""<h2 class="w3-container">Python Constants</h2>""")
                     constant_header = True
-                write_html(f"<p/><code>{name} = {value}</code>")
+                write_html(f"<p/>`{name} = {value}`")
 
         write_html("""\n<h1 id="package" class="w3-container">Package Metadata</h1>\n""")
         write_html("""<p/><table class="w3-container">\n""")
