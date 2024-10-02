@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  validate-matrix:
+  validate-matrix-linux:
     strategy:
       matrix:
         os-version: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15]
@@ -36,7 +36,7 @@ jobs:
         python3 -m qdox --withcss
         diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr && false)
 
-  validate-matrix:
+  validate-matrix-windows:
     strategy:
       matrix:
         os-version: [windows-2022]
