@@ -39,10 +39,20 @@ Generate docs/index.html from module and README.md
 </ul>
 
 <h2 class="w3-container">Description</h2>
-<p/>  The <code>quickdocs</code> script generates the documentation for a simple Python project.
-<p/>  The script loads the module specified in the <code>pyproject.toml</code> file and
-  outputs the <code>__doc__</code> property of the module. It then documents the python
-  function and constants, followed by the project metadata.
+<p/>  The <code>quickdocs</code> command generates the documentation for a simple Python
+  project. The formatting is meants to use simple text layout as the input so
+  that the input can be used for both Python <code>help()</code> and the documentation
+  pages.
+<p/>  The command loads the module specified in the <code>pyproject.toml</code> file and
+  outputs the <code>__doc__</code> property of the module as the command line
+  documentation. It then outputs the python functions and constants,
+  followed by the project metadata.
+<p/>  You can use your project's <code>pages-build-deployment</code> workflow to deploy the
+  documentation to <code>github.io</code> or to your own custom site by setting the
+  following options in your project <code>Settings-->Pages</code>:
+<p/>  * <code>Source</code>: Choose <code>Deploy from a branch</code>
+<p/>  * <code>Branch</code>: Choose <code>main</code> and <code>/docs</code>.
+<p/>  * <code>Custom domain</code>: Enter one if you have one.
 <p/>
 <h2 class="w3-container">Usage</h2>
 <p/>  To use <code>quickdocs</code> in a project you must do the following.
