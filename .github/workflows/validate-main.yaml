@@ -8,8 +8,6 @@ on:
 
 jobs:
 
-  continue-on-error: true
-
   validate-matrix-linux:
     strategy:
       matrix:
@@ -17,6 +15,7 @@ jobs:
         python-version: [3.11, 3.12]
 
     runs-on: ${{ matrix.os-version }}
+    continue-on-error: true
 
     steps:
     - uses: actions/checkout@v4
@@ -45,6 +44,7 @@ jobs:
         python-version: [3.11, 3.12]
 
     runs-on: ${{ matrix.os-version }}
+    continue-on-error: true
 
     steps:
     - uses: actions/checkout@v4
@@ -73,6 +73,7 @@ jobs:
         python-version: [3.11, 3.12]
 
     runs-on: ${{ matrix.os-version }}
+    continue-on-error: true
 
     steps:
     - uses: actions/checkout@v4
