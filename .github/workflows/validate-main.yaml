@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  validate:
+  validate-ubuntu-python3_11:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,6 +15,27 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.11'
+
+    - name: Lint
+      run: |
+        python3 -m pip install --user pip --upgrade pylint
+        pylint qdox.py
+
+    - name: Validate
+      run: |
+        python3 -m pip install .
+        mv docs/index.html docs/validate.html
+        python3 -m qdox --withcss
+        diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr;false)
+
+  validate-ubuntu-python3_12:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
 
     - name: Lint
       run: |
