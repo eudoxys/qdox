@@ -97,7 +97,7 @@ Text Formatting:
 #
 # Disable link warnings for now, see issue#1
 #
-# pylint: disable=R0914,R1702,R0912,R0915,W0718,C0301,E0401
+# pylint: disable=R0914,R1702,R0912,R0915,W0718,C0301,E0401,W0702
 #
 
 import os
@@ -107,19 +107,18 @@ import tomllib
 import re
 import datetime as dt
 import shutil
-import sys
-import requests
 import json
+import requests
 
 def _get_json(*args,**kwargs):
     try:
         with requests.get(*args,**kwargs) as res:
             if res.status_code == 200:
                 return json.loads(res.text)
-            return dict(error="request failed",message=f"StatusCode:{res.status_code}")
+            return {"error": "request failed", "message": f"StatusCode:{res.status_code}"}
     except:
         e_type, e_name, _ = sys.exc_info()
-        return dict(error="request failed",message=f"{e_type.__name__}={e_name}")
+        return {"error": "request failed", "message": f"{e_type.__name__}={e_name}"}
 
 class QdoxError(Exception):
     """Error caused by an invalid or missing command line option"""
