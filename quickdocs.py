@@ -31,7 +31,7 @@ Usage:
         
     2. Run `quickdocs` in the project root folder by running the command
        
-         python3 -m quickdocs -
+         quickdocs -
        
        If you want to include the CSS file, use the option `--withcss`
        
