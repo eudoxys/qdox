@@ -25,5 +25,5 @@ jobs:
       run: |
         python3 -m pip install .
         mv docs/index.html docs/validate.html
-        qdox --withcss
+        python3 -m qdox --withcss
         diff docs/index.html docs/validate.html
