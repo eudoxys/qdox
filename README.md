@@ -1,5 +1,5 @@
-[![Validate main](https://github.com/dchassin/qdox/actions/workflows/validate-main.yaml/badge.svg)](https://github.com/dchassin/qdox/actions/workflows/validate-main.yaml)
-[![pages-build-deployment](https://github.com/dchassin/qdox/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/dchassin/qdox/actions/workflows/pages/pages-build-deployment)
+[![Validate main](https://github.com/eudoxys/qdox/actions/workflows/validate-main.yaml/badge.svg)](https://github.com/eudoxys/qdox/actions/workflows/validate-main.yaml)
+[![pages-build-deployment](https://github.com/eudoxys/qdox/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/eudoxys/qdox/actions/workflows/pages/pages-build-deployment)
 
 # qdox
 
@@ -7,7 +7,7 @@ Quick documentation generator.
 
 ## Documentation
 
-See http://www.chassin.org/qdox for full documentation.
+See http://www.eudoxys.com/qdox for full documentation.
 
 ## Updating
 
