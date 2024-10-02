@@ -107,6 +107,19 @@ import tomllib
 import re
 import datetime as dt
 import shutil
+import sys
+import requests
+import json
+
+def _get_json(*args,**kwargs):
+    try:
+        with requests.get(*args,**kwargs) as res:
+            if res.status_code == 200:
+                return json.loads(res.text)
+            return dict(error="request failed",message=f"StatusCode:{res.status_code}")
+    except:
+        e_type, e_name, _ = sys.exc_info()
+        return dict(error="request failed",message=f"{e_type.__name__}={e_name}")
 
 class QdoxError(Exception):
     """Error caused by an invalid or missing command line option"""
@@ -138,6 +151,7 @@ def _main(argv:list[str]=sys.argv) -> int:
 
     with open("pyproject.toml","rb") as fh:
         package = tomllib.load(fh)["project"]
+        homepage = package["urls"]["Homepage"]
         for item,key in {"authors":"name","maintainers":"name"}.items():
             package[item] = ",".join([x[key] for x in package[item]])
         for item,key in {"license":"text"}.items():
@@ -158,6 +172,9 @@ def _main(argv:list[str]=sys.argv) -> int:
 
     module = importlib.import_module(package["name"])
     package_name = package['name'].replace('_',' ').title()
+
+    org = homepage.split("/")[-2]
+    github_data = _get_json(f"https://api.github.com/users/{org}")
 
     os.makedirs("docs",exist_ok=True)
 
@@ -249,9 +266,9 @@ def _main(argv:list[str]=sys.argv) -> int:
     <!-- Sidebar -->
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:180px">
       <center>
-        <img src="https://avatars.githubusercontent.com/u/20801735?v=4" height="128px" width="128px"/>
-        <br/><a href="https://www.chassin.org/">David P. Chassin</a>
-        <br/><a href="https://www.eudoxys.com/">Eudoxys Sciences LLC</a>
+        <img src="{github_data['avatar_url']}" height="128px" width="128px"/>
+        <br/><a href="{github_data['html_url']}">{github_data['name']}</a>
+        <br/><a href="https://github.com/{org}">{github_data['company']}</a>
       </center>
       <title class="w3-bar-item">{package['name']}</title>
       <a href="#main" class="w3-bar-item w3-button">Command Line</a>
