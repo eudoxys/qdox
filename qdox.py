@@ -85,8 +85,11 @@ Text Formatting:
     * `!!text!!`: !!Highlight!! text
 
     * `~~text~~`: ~~strikeout~~ text
+
     * `__text__`: __underline__ text
+
     * `^word`: ^superscript word (ends at space)
+    
     * `_word`: _subscript word (ends at space)
 
     * ``text``: `code` text
