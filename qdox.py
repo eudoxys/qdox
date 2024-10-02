@@ -115,10 +115,20 @@ def _get_json(*args,**kwargs):
         with requests.get(*args,**kwargs,timeout=60) as res:
             if res.status_code == 200:
                 return json.loads(res.text)
-            return {"error": "request failed", "message": f"StatusCode:{res.status_code}"}
+            qargs = ",".join([repr(x) for x in args]) + \
+                ",".join([f"{str(x)}={repr(y)}" for x,y in kwargs.items()])
+            return {
+                "error": "request failed", 
+                "message": f"requests.get({qargs}) -> StatusCode={res.status_code}",
+                }
     except:
         e_type, e_name, _ = sys.exc_info()
-        return {"error": "request failed", "message": f"{e_type.__name__}={e_name}"}
+        qargs = ",".join([repr(x) for x in args]) + \
+            ",".join([f"{str(x)}={repr(y)}" for x,y in kwargs.items()])
+        return {
+            "error": "request failed", 
+            "message": f"requests.get({qargs}) -> {e_type.__name__}={e_name}",
+            }
 
 class QdoxError(Exception):
     """Error caused by an invalid or missing command line option"""
