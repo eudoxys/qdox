@@ -95,9 +95,9 @@ Text Formatting:
 """
 
 #
-# Disable link warnings for now
+# Disable link warnings for now, see issue#1
 #
-# pylint: disable=R0914,R1702,R0912,R0915,W0718
+# pylint: disable=R0914,R1702,R0912,R0915,W0718,C0301,E0401
 #
 
 import os
@@ -114,7 +114,7 @@ class QdoxError(Exception):
 E_OK = 0
 E_ERROR = 1
 
-def _main(argv:list[str]=sys.argv):
+def _main(argv:list[str]=sys.argv) -> int:
 
     main.DEBUG = False
     withcss = False
@@ -399,7 +399,7 @@ def _main(argv:list[str]=sys.argv):
 
     return E_OK
 
-def main(argv=sys.argv):
+def main(argv:list[str]=sys.argv) -> int:
     """Main CLI
 
     Runs the main `qdox` program. Generates the `docs/index.html` from
@@ -424,9 +424,9 @@ def main(argv=sys.argv):
         QdoxError: exception raised when an invalid command argument is encountered.
     """
     try:
-        rc = _main()
+        rc = _main(argv)
     except Exception:
-        e_type,e_value,e_trace = sys.exc_info()
+        e_type,e_value,_ = sys.exc_info()
         print(f"ERROR [{os.path.basename(sys.argv[0])} {e_type.__name__}]:" +
             f" {e_value}",file=sys.stderr,flush=True)
         if main.DEBUG:
@@ -435,4 +435,4 @@ def main(argv=sys.argv):
     return rc
 
 if __name__ == "__main__":
-    exit(main())
+    sys.exit(main())
