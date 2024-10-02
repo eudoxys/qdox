@@ -14,7 +14,7 @@ maintainers = [
     ]
 readme = "README.md"
 requires-python = ">= 3.11"
-dependencies = []
+dependencies = ["requests"]
 keywords = ["github","python","documentation"]
 license = {text="MIT License"}
 classifiers = [
