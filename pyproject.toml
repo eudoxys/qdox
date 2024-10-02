@@ -29,10 +29,10 @@ classifiers = [
     ]
 
 [project.urls]
-Homepage = "https://github.com/dchassin/qdox"
-Documentation = "https://www.chassin.org/qdox"
-Repository = "https://github.com/dchassin/qdox.git"
-Issues = "https://github.com/dchassin/qdox/issues"
+Homepage = "https://github.com/eudoxys/qdox"
+Documentation = "https://www.eudoxys.com/qdox"
+Repository = "https://github.com/eudoxys/qdox.git"
+Issues = "https://github.com/eudoxys/qdox/issues"
 
 [project.scripts]
 qdox = "qdox:main"
