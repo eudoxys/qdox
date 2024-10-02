@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "quickdocs"
+name = "qdox"
 version = "0.0.0a0"
 description = "Generate quick documentation for a Python project on GitHub"
 authors = [
@@ -26,10 +26,10 @@ classifiers = [
     ]
 
 [project.urls]
-Homepage = "https://github.com/dchassin/quickdocs"
-Documentation = "https://www.chassin.org/quickdocs"
-Repository = "https://github.com/dchassin/quickdocs.git"
-Issues = "https://github.com/dchassin/quickdocs/issues"
+Homepage = "https://github.com/dchassin/qdox"
+Documentation = "https://www.chassin.org/qdox"
+Repository = "https://github.com/dchassin/qdox.git"
+Issues = "https://github.com/dchassin/qdox/issues"
 
 [project.scripts]
-quickdocs = "quickdocs:main"
+qdox = "qdox:main"

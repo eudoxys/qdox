@@ -1,13 +1,13 @@
-[![Validate main](https://github.com/dchassin/quickdocs/actions/workflows/validate-main.yaml/badge.svg)](https://github.com/dchassin/quickdocs/actions/workflows/validate-main.yaml)
-[![pages-build-deployment](https://github.com/dchassin/quickdocs/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/dchassin/quickdocs/actions/workflows/pages/pages-build-deployment)
+[![Validate main](https://github.com/dchassin/qdox/actions/workflows/validate-main.yaml/badge.svg)](https://github.com/dchassin/qdox/actions/workflows/validate-main.yaml)
+[![pages-build-deployment](https://github.com/dchassin/qdox/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/dchassin/qdox/actions/workflows/pages/pages-build-deployment)
 
-# quickdocs
+# qdox
 
 Quick documentation generator.
 
 ## Documentation
 
-See http://www.chassin.org/quickdocs for full documentation.
+See http://www.chassin.org/qdox for full documentation.
 
 ## Updating
 

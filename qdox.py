@@ -1,6 +1,6 @@
 """Generate docs/index.html from module and README.md
 
-Syntax: quickdocs [OPTION ...]
+Syntax: qdox [OPTION ...]
 
 Options:
 
@@ -10,11 +10,11 @@ Options:
 
     * -h|--help|help: Display this help information
 
-    * --withcss[=CSSFILE]: Copy the CSS file to `docs/` (default is `quickdocs.css`)
+    * --withcss[=CSSFILE]: Copy the CSS file to `docs/` (default is `qdox.css`)
 
 Description:
 
-  The `quickdocs` command generates the documentation for a simple Python
+  The `qdox` command generates the documentation for a simple Python
   project. The formatting is meants to use simple text layout as the input so
   that the input can be used for both Python `help()` and the documentation
   pages.
@@ -28,28 +28,30 @@ Description:
   documentation to `github.io` or to your own custom site by setting the
   following options in your project `Settings-->Pages`:
 
-  * `Source`: Choose `Deploy from a branch`
+    * `Source`: Choose **Deploy from a branch**
 
-  * `Branch`: Choose `main` and `/docs`.
+    * `Branch`: Choose **main** and **/docs**.
 
-  * `Custom domain`: Enter one if you have one.
+    * `Custom domain`: Enter one if you have one.
 
 Usage:
 
-  To use `quickdocs` in a project you must do the following.
+  To use `qdox` in a project you must do the following.
 
-    1. Install `quickdocs` from the repo into the current `venv` by running the
+    1. Install `qdox` from the repo into the current `venv` by running the
        command 
        
-         python3 -m pip install git+https://github.com/dchassin/quickdocs
+         python3 -m pip install git+https://github.com/dchassin/qdox
         
-    2. Run `quickdocs` in the project root folder by running the command
+    2. Run `qdox` in the project root folder by running the command
        
-         quickdocs -
+         qdox -
        
-       If you want to include a CSS file, use the option `--withcss=file.css`, e.g.,
+       If you want to include a CSS file, use the option `--withcss=CSSFILE`, e.g.,
        
-         quickdocs --withcss=mystyles.css
+         qdox --withcss=mystyles.css
+
+       The `CSSFILE` defaults to `qdox.css` when omitted.
        
     3. Add/push the new files to GitHub by running the commands 
        
@@ -106,7 +108,7 @@ import re
 import datetime as dt
 import shutil
 
-class QuickdocsError(Exception):
+class QdoxError(Exception):
     """Error caused by an invalid or missing command line option"""
 
 E_OK = 0
@@ -130,9 +132,9 @@ def _main(argv:list[str]=sys.argv):
         if arg == "--debug":
             main.DEBUG = True
         elif key == "--withcss":
-            withcss = value if value else "quickdocs.css"
+            withcss = value if value else "qdox.css"
         elif arg != "-":
-            raise QuickdocsError(f"invalid option '{arg}'")
+            raise QdoxError(f"invalid option '{arg}'")
 
     with open("pyproject.toml","rb") as fh:
         package = tomllib.load(fh)["project"]
@@ -147,8 +149,10 @@ def _main(argv:list[str]=sys.argv):
                 package[item] = "<br/>".join(package[item])
             if not package[item]:
                 package[item] = "None"
+        for item in ["scripts"]:
+            package["scripts"] = "<br/>".join([f"`{x}` &rightarrow; `{y.split(':')[1]}()`" for x,y in package["scripts"].items()])
         for item in list(package):
-            if item not in ["name","version","description","authors","maintainers",
+            if item not in ["name","version","description","authors","maintainers","scripts",
                 "requires-python","dependencies","keywords","license","classifiers","urls"]:
                 del package[item]
 
@@ -158,7 +162,7 @@ def _main(argv:list[str]=sys.argv):
     os.makedirs("docs",exist_ok=True)
 
     if withcss:
-        shutil.copy(withcss,"docs/quickdocs.css")
+        shutil.copy(withcss,"docs/qdox.css")
 
     with open("docs/index.html","w",encoding="utf-8") as html:
 
@@ -236,7 +240,7 @@ def _main(argv:list[str]=sys.argv):
     <head>
         <title>{package_name}</title>
         <meta name="expires" content="86400" />
-        <link rel="stylesheet" href="{withcss if withcss else 'quickdocs.css'}">
+        <link rel="stylesheet" href="{withcss if withcss else 'qdox.css'}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
@@ -249,7 +253,7 @@ def _main(argv:list[str]=sys.argv):
         <br/><a href="https://www.chassin.org/">David P. Chassin</a>
         <br/><a href="https://www.eudoxys.com/">Eudoxys Sciences LLC</a>
       </center>
-      <title class="w3-bar-item">{package_name}</title>
+      <title class="w3-bar-item">{package['name']}</title>
       <a href="#main" class="w3-bar-item w3-button">Command Line</a>
       <a href="#python" class="w3-bar-item w3-button">Python Library</a>
       <a href="#package" class="w3-bar-item w3-button">Package Metadata</a>
@@ -398,7 +402,7 @@ def _main(argv:list[str]=sys.argv):
 def main(argv=sys.argv):
     """Main CLI
 
-    Runs the main `quickdocs` program. Generates the `docs/index.html` from
+    Runs the main `qdox` program. Generates the `docs/index.html` from
     the `README.md` file and from the module created using the
     `pyproject.toml` file.  If the `WITHCSS` is set to a file that exists, it
     also copies that file to the `docs/` folder and references it in the HTML
@@ -417,7 +421,7 @@ def main(argv=sys.argv):
     Exceptions:
         Exception: exceptions are only raised if `DEBUG` is `True`.
         FileNotFoundError: exception raised when an input file is not found.
-        QuickdocsError: exception raised when an invalid command argument is encountered.
+        QdoxError: exception raised when an invalid command argument is encountered.
     """
     try:
         rc = _main()
