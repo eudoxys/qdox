@@ -93,6 +93,9 @@ import shutil
 class CommandError(Exception):
     """Error caused by an invalid or missing command line option"""
 
+E_OK = 0
+E_ERROR = 1
+
 def main(argv:list[str]=sys.argv):
     """Main CLI
 
@@ -382,13 +385,15 @@ def main(argv:list[str]=sys.argv):
     if withcss:
         shutil.copy(withcss,"docs/quickdocs.css")
 
+    return E_OK
 
 if __name__ == "__main__":
     try:
-        main()
+        sys.exit(main())
     except Exception:
         e_type,e_value,e_trace = sys.exc_info()
         print(f"ERROR [{os.path.basename(sys.argv[0])[:-2] + e_type.__name__}]:" +
             f" {e_value}",file=sys.stderr)
         if main.DEBUG:
             raise
+        sys.exit(E_ERROR)
