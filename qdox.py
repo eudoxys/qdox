@@ -112,7 +112,7 @@ import requests
 
 def _get_json(*args,**kwargs):
     try:
-        with requests.get(*args,**kwargs) as res:
+        with requests.get(*args,**kwargs,timeout=60) as res:
             if res.status_code == 200:
                 return json.loads(res.text)
             return {"error": "request failed", "message": f"StatusCode:{res.status_code}"}
