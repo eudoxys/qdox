@@ -92,21 +92,13 @@ import re
 import datetime as dt
 import shutil
 
-class CommandError(Exception):
+class QuickdocsError(Exception):
     """Error caused by an invalid or missing command line option"""
 
 E_OK = 0
 E_ERROR = 1
 
-def main(argv:list[str]=sys.argv):
-    """Main CLI
-
-    Arguments:
-        argv (list[str]): argument list (default is sys.argv)
-
-    Returns:
-        int: exit code
-    """
+def _main(argv:list[str]=sys.argv):
 
     main.DEBUG = False
     withcss = False
@@ -126,7 +118,7 @@ def main(argv:list[str]=sys.argv):
         elif key == "--withcss":
             withcss = value if value else "quickdocs.css"
         elif arg != "-":
-            raise CommandError(f"invalid option '{arg}'")
+            raise QuickdocsError(f"invalid option '{arg}'")
 
     with open("pyproject.toml","rb") as fh:
         package = tomllib.load(fh)["project"]
@@ -150,6 +142,9 @@ def main(argv:list[str]=sys.argv):
     package_name = package['name'].replace('_',' ').title()
 
     os.makedirs("docs",exist_ok=True)
+
+    if withcss:
+        shutil.copy(withcss,"docs/quickdocs.css")
 
     with open("docs/index.html","w",encoding="utf-8") as html:
 
@@ -335,7 +330,7 @@ def main(argv:list[str]=sys.argv):
                         write_html(f" &rightarrow; *{c}*")
                     except KeyError:
                         write_html(" &rightarrow; *None*")
-                    write_html("</code></h2>\n")
+                    write_html("</code></h2>\n<p/>")
 
                     for line in value.__doc__.split("\n"):
                         if len(line) == 0:
@@ -353,7 +348,7 @@ def main(argv:list[str]=sys.argv):
                                 write_html(f"<li>{part[0]}</li>\n",md=False)
                         else:
                             set_mode(None)
-                            write_html(f"<p/>{line}\n")
+                            write_html(f"{line}\n")
                 else:
                     print(f"WARNING: function '{name}' has no __doc__")
             set_mode(None)
@@ -384,18 +379,42 @@ def main(argv:list[str]=sys.argv):
         write_html("""</body>
             </html>""",nl=True)
 
-    if withcss:
-        shutil.copy(withcss,"docs/quickdocs.css")
-
     return E_OK
 
-if __name__ == "__main__":
+def main(argv=sys.argv):
+    """Main CLI
+
+    Runs the main `quickdocs` program. Generates the `docs/index.html` from
+    the `README.md` file and from the module created using the
+    `pyproject.toml` file.  If the `WITHCSS` is set to a file that exists, it
+    also copies that file to the `docs/` folder and references it in the HTML
+    file.
+
+    Arguments:
+        argv (list[str]): argument list (default is sys.argv)
+
+    Returns:
+        int: exit code
+
+    Properties:
+        DEBUG (bool): enable debugging traceback on exception
+        WITHCSS (str): enable copying CSS file to `docs/`
+
+    Exceptions:
+        Exception: exceptions are only raised if `DEBUG` is `True`.
+        FileNotFoundError: exception raised when an input file is not found.
+        QuickdocsError: exception raised when an invalid command argument is encountered.
+    """
     try:
-        exit(main())
+        rc = _main()
     except Exception:
         e_type,e_value,e_trace = sys.exc_info()
-        print(f"ERROR [{os.path.basename(sys.argv[0])[:-2] + e_type.__name__}]:" +
+        print(f"ERROR [{os.path.basename(sys.argv[0])} {e_type.__name__}]:" +
             f" {e_value}",file=sys.stderr,flush=True)
         if main.DEBUG:
             raise
-        exit(E_ERROR)
+        rc = E_ERROR
+    return rc
+
+if __name__ == "__main__":
+    exit(main())

@@ -3,7 +3,7 @@
     <head>
         <title>Quickdocs</title>
         <meta name="expires" content="86400" />
-        <link rel="stylesheet" href="mystyles.css">
+        <link rel="stylesheet" href="quickdocs.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
@@ -74,11 +74,16 @@ Generate docs/index.html from module and README.md
 
 <h1 id="python" class="w3-container">Python Library</h1>
 
-<h2 class="w3-container"><code><b>CommandError</b>() &rightarrow; <i>None</i></code></h2>
+<h2 class="w3-container"><code><b>QuickdocsError</b>() &rightarrow; <i>None</i></code></h2>
 <p/>Error caused by an invalid or missing command line option
 
-<h2 class="w3-container"><code><b>main</b>(<b>argv</b>:<i>list</i>) &rightarrow; <i>None</i></code></h2>
+<h2 class="w3-container"><code><b>main</b>() &rightarrow; <i>None</i></code></h2>
 <p/>Main CLI
+<p/>    Runs the main <code>quickdocs</code> program. Generates the <code>docs/index.html</code> from
+    the <code>README.md</code> file and from the module created using the
+    <code>pyproject.toml</code> file.  If the <code>WITHCSS</code> is set to a file that exists, it
+    also copies that file to the <code>docs/</code> folder and references it in the HTML
+    file.
 <p/><h3 class="w3-container">Arguments</h3>
 <ul><li><code>argv (list[str])</code>:  argument list (default is sys.argv)</li>
 </li>
@@ -87,7 +92,18 @@ Generate docs/index.html from module and README.md
 <ul><li><code>int</code>:  exit code</li>
 </li>
 </ul>
-<p/>    
+<h3 class="w3-container">Properties</h3>
+<ul><li><code>DEBUG (bool)</code>:  enable debugging traceback on exception</li>
+<li><code>WITHCSS (str)</code>:  enable copying CSS file to `docs/`</li>
+</li>
+</ul>
+<h3 class="w3-container">Exceptions</h3>
+<ul><li><code>Exception</code>:  exceptions are only raised if `DEBUG` is `True`.</li>
+<li><code>FileNotFoundError</code>:  exception raised when an input file is not found.</li>
+<li><code>QuickdocsError</code>:  exception raised when an invalid command argument is encountered.</li>
+</li>
+</ul>
+    
 <h2 class="w3-container">Python Constants</h2><p/><code>E_ERROR = 1</code><p/><code>E_OK = 0</code>
 <h1 id="package" class="w3-container">Package Metadata</h1>
 <p/><table class="w3-container">
