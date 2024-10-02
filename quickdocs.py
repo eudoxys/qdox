@@ -14,11 +14,25 @@ Options:
 
 Description:
 
-  The `quickdocs` script generates the documentation for a simple Python project.
+  The `quickdocs` command generates the documentation for a simple Python
+  project. The formatting is meants to use simple text layout as the input so
+  that the input can be used for both Python `help()` and the documentation
+  pages.
 
-  The script loads the module specified in the `pyproject.toml` file and
-  outputs the `__doc__` property of the module. It then documents the python
-  function and constants, followed by the project metadata.
+  The command loads the module specified in the `pyproject.toml` file and
+  outputs the `__doc__` property of the module as the command line
+  documentation. It then outputs the python functions and constants,
+  followed by the project metadata.
+
+  You can use your project's `pages-build-deployment` workflow to deploy the
+  documentation to `github.io` or to your own custom site by setting the
+  following options in your project `Settings-->Pages`:
+
+  * `Source`: Choose `Deploy from a branch`
+
+  * `Branch`: Choose `main` and `/docs`.
+
+  * `Custom domain`: Enter one if you have one.
 
 Usage:
 
