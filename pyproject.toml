@@ -7,7 +7,7 @@ py-modules = []
 
 [project]
 name = "qdox"
-version = "0.0.0a1"
+version = "0.0.0a2"
 description = "Generate quick documentation for a Python project on GitHub"
 authors = [
     {name = "David P. Chassin <dpchassin@gmail.com>"},
