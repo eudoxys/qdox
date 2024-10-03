@@ -28,7 +28,7 @@
     <h1 id="main" class="w3-container">Command Line</h1>
 
     <p/>
-Generate docs/index.html from module and README.md
+Generate docs/index.html from module contents and metadata
 <p/>Syntax: <code>qdox [OPTION ...]</code><p/>
 <h2 class="w3-container">Options</h2>
 <p/><ul><li>
@@ -40,9 +40,9 @@ Generate docs/index.html from module and README.md
 
 <h2 class="w3-container">Description</h2>
 <p/>  The <code>qdox</code> command generates the documentation for a simple Python
-  project. The formatting is meants to use simple text layout as the input so
-  that the input can be used for both Python <code>help()</code> and the documentation
-  pages.
+  project. The formatting is designed to use simple text layout as the input 
+  so that the same documentation source can be used for both Python <code>help()</code> 
+  output and the documentation pages.
 <p/>  The command loads the module specified in the <code>pyproject.toml</code> file and
   outputs the <code>__doc__</code> property of the module as the command line
   documentation. It then outputs the python functions and constants,
@@ -78,7 +78,8 @@ Generate docs/index.html from module and README.md
 <code><code>!!text!!</code></code>:  <font class="highlight">Highlight</font> text</li><li>
 <code><code>~~text~~</code></code>:  <strike>strikeout</strike> text</li><li>
 <code><code>__text__</code></code>:  <u>underline</u> text</li><li>
-<code><code>^word</code></code>:  <sup>superscript</sup> word (ends at space)</li><li>
+<code><code>^word</code></code>:  <sup>superscript</sup> word (ends at space)<pre>
+</pre></li><li>
 <code><code>_word</code></code>:  <sub>subscript</sub> word (ends at space)</li><li>
 <code>`text`</code>:  <code>code</code> text</li><li>
 <code><code>protocol</code>: //url/</code>: <a href="protocol://url/" target="_tab">protocol://url/</a> formatting with active link</li></li>
@@ -120,7 +121,7 @@ Generate docs/index.html from module and README.md
 <h1 id="package" class="w3-container">Package Metadata</h1>
 <p/><table class="w3-container">
 <tr><th><nobr>Name</nobr></th><td>:</td><td>qdox</td></tr>
-<tr><th><nobr>Version</nobr></th><td>:</td><td>0.0.0a1</td></tr>
+<tr><th><nobr>Version</nobr></th><td>:</td><td>0.0.0a2</td></tr>
 <tr><th><nobr>Description</nobr></th><td>:</td><td>Generate quick documentation for a Python project on GitHub</td></tr>
 <tr><th><nobr>Authors</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>
 <tr><th><nobr>Maintainers</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>

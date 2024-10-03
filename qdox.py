@@ -1,4 +1,4 @@
-"""Generate docs/index.html from module and README.md
+"""Generate docs/index.html from module contents and metadata
 
 Syntax: qdox [OPTION ...]
 
@@ -85,8 +85,11 @@ Text Formatting:
     * `!!text!!`: !!Highlight!! text
 
     * `~~text~~`: ~~strikeout~~ text
+
     * `__text__`: __underline__ text
+
     * `^word`: ^superscript word (ends at space)
+    
     * `_word`: _subscript word (ends at space)
 
     * ``text``: `code` text
@@ -115,10 +118,20 @@ def _get_json(*args,**kwargs):
         with requests.get(*args,**kwargs,timeout=60) as res:
             if res.status_code == 200:
                 return json.loads(res.text)
-            return {"error": "request failed", "message": f"StatusCode:{res.status_code}"}
+            qargs = [repr(x) for x in args] + \
+                [f"{str(x)}={repr(y)}" for x,y in kwargs.items()]
+            return {
+                "error": "request failed", 
+                "message": f"requests.get({','.join(qargs)}) -> StatusCode={res.status_code}",
+                }
     except:
         e_type, e_name, _ = sys.exc_info()
-        return {"error": "request failed", "message": f"{e_type.__name__}={e_name}"}
+        qargs = [repr(x) for x in args] + \
+            [f"{str(x)}={repr(y)}" for x,y in kwargs.items()]
+        return {
+            "error": "request failed", 
+            "message": f"requests.get({','.join(qargs)}) -> {e_type.__name__}={e_name}",
+            }
 
 class QdoxError(Exception):
     """Error caused by an invalid or missing command line option"""
@@ -174,6 +187,8 @@ def _main(argv:list[str]=sys.argv) -> int:
 
     org = homepage.split("/")[-2]
     github_data = _get_json(f"https://api.github.com/users/{org}")
+    if "error" in github_data:
+        raise QdoxError(github_data["message"])
 
     os.makedirs("docs",exist_ok=True)
 
