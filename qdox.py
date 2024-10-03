@@ -15,9 +15,9 @@ Options:
 Description:
 
   The `qdox` command generates the documentation for a simple Python
-  project. The formatting is meants to use simple text layout as the input so
-  that the input can be used for both Python `help()` and the documentation
-  pages.
+  project. The formatting is designed to use simple text layout as the input 
+  so that the same documentation source can be used for both Python `help()` 
+  output and the documentation pages.
 
   The command loads the module specified in the `pyproject.toml` file and
   outputs the `__doc__` property of the module as the command line
