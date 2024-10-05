@@ -10,7 +10,7 @@ qdox = ["*.py","*.css"]
 
 [project]
 name = "qdox"
-version = "0.0.0a2"
+version = "0.0.0a3"
 description = "Generate quick documentation for a Python project on GitHub"
 authors = [
     {name = "David P. Chassin <dpchassin@gmail.com>"},
