@@ -63,7 +63,7 @@ jobs:
       run: |
         python3 -m pip install .
         mv docs/index.html docs/validate.html
-        python3 -m qdox --withcss
+        qdox --withcss
         diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr && false)
 
   validate-matrix-windows:
@@ -92,6 +92,6 @@ jobs:
       run: |
         python3 -m pip install .
         mv docs/index.html docs/validate.html
-        python3 -m qdox --withcss
+        qdox --withcss
         diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr && false)
 
