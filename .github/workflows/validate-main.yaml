@@ -28,13 +28,13 @@ jobs:
         python3 -m venv .venv
         source .venv/bin/activate
         python3 -m pip install pip --upgrade pylint
-        pylint qdox.py
+        pylint src/qdox/main.py
 
     - name: Validate
       run: |
         python3 -m pip install .
         mv docs/index.html docs/validate.html
-        python3 -m qdox --withcss
+        qdox --withcss
         diff docs/index.html docs/validate.html || (echo '***ERROR***: Did you forget to run `make` before pushing your latest changes?' >/dev/stderr && false)
 
   validate-matrix-macos:
