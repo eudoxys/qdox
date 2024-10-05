@@ -35,6 +35,7 @@ Generate docs/index.html from module contents and metadata
 <code>-</code>:  run with no options</li><li>
 <code>--debug</code>:  Enable debugging traceback on exceptions</li><li>
 <code>-h|--help|help</code>:  Display this help information</li><li>
+<code>--tomlfile=TOMFILE</code>:  Use TOMFILE instead of "pyproject.toml"</li><li>
 <code>--withcss[=CSSFILE]</code>:  Copy the CSS file to <code>docs/</code> (default is <code>qdox.css</code>)</li></li>
 </ul>
 
@@ -87,37 +88,6 @@ Generate docs/index.html from module contents and metadata
 
 <h1 id="python" class="w3-container">Python Library</h1>
 
-<h2 class="w3-container"><code><b>QdoxError</b>() &rightarrow; <i>None</i></code></h2>
-<p/>Error caused by an invalid or missing command line option
-
-<h2 class="w3-container"><code><b>main</b>(<b>argv</b>:<i>list</i>) &rightarrow; <i>int</i></code></h2>
-<p/>Main CLI
-<p/>    Runs the main <code>qdox</code> program. Generates the <code>docs/index.html</code> from
-    the <code>README.md</code> file and from the module created using the
-    <code>pyproject.toml</code> file.  If the <code>WITHCSS</code> is set to a file that exists, it
-    also copies that file to the <code>docs/</code> folder and references it in the HTML
-    file.
-<p/><h3 class="w3-container">Arguments</h3>
-<ul><li><code>argv (list[str])</code>:  argument list (default is sys.argv)</li>
-</li>
-</ul>
-<h3 class="w3-container">Returns</h3>
-<ul><li><code>int</code>:  exit code</li>
-</li>
-</ul>
-<h3 class="w3-container">Properties</h3>
-<ul><li><code>DEBUG (bool)</code>:  enable debugging traceback on exception</li>
-<li><code>WITHCSS (str)</code>:  enable copying CSS file to <code>docs/</code></li>
-</li>
-</ul>
-<h3 class="w3-container">Exceptions</h3>
-<ul><li><code>Exception</code>:  exceptions are only raised if <code>DEBUG</code> is <code>True</code>.</li>
-<li><code>FileNotFoundError</code>:  exception raised when an input file is not found.</li>
-<li><code>QdoxError</code>:  exception raised when an invalid command argument is encountered.</li>
-</li>
-</ul>
-    
-<h2 class="w3-container">Python Constants</h2><p/><code>E_ERROR = 1</code><p/><code>E_OK = 0</code>
 <h1 id="package" class="w3-container">Package Metadata</h1>
 <p/><table class="w3-container">
 <tr><th><nobr>Name</nobr></th><td>:</td><td>qdox</td></tr>
@@ -126,7 +96,7 @@ Generate docs/index.html from module contents and metadata
 <tr><th><nobr>Authors</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>
 <tr><th><nobr>Maintainers</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>
 <tr><th><nobr>Requires-Python</nobr></th><td>:</td><td>>= 3.11</td></tr>
-<tr><th><nobr>Dependencies</nobr></th><td>:</td><td>requests</td></tr>
+<tr><th><nobr>Dependencies</nobr></th><td>:</td><td>requests<br/>tomli</td></tr>
 <tr><th><nobr>Keywords</nobr></th><td>:</td><td>github<br/>python<br/>documentation</td></tr>
 <tr><th><nobr>License</nobr></th><td>:</td><td>MIT License</td></tr>
 <tr><th><nobr>Classifiers</nobr></th><td>:</td><td>Development Status :: 3 - Alpha<br/>Intended Audience :: Developers<br/>License :: OSI Approved :: MIT License<br/>Programming Language :: Python :: 3 :: Only<br/>Topic :: Software Development :: Libraries</td></tr>

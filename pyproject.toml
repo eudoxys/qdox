@@ -2,8 +2,11 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-py-modules = []
+[tools.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+qdox = ["*.py","*.css"]
 
 [project]
 name = "qdox"
@@ -17,7 +20,7 @@ maintainers = [
     ]
 readme = "README.md"
 requires-python = ">= 3.11"
-dependencies = ["requests"]
+dependencies = ["requests","tomli"]
 keywords = ["github","python","documentation"]
 license = {text="MIT License"}
 classifiers = [
@@ -35,4 +38,4 @@ Repository = "https://github.com/eudoxys/qdox.git"
 Issues = "https://github.com/eudoxys/qdox/issues"
 
 [project.scripts]
-qdox = "qdox:main"
+qdox = "qdox.main:main"

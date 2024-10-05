@@ -10,6 +10,8 @@ Options:
 
     * -h|--help|help: Display this help information
 
+    * --tomlfile=TOMFILE: Use TOMFILE instead of "pyproject.toml"
+
     * --withcss[=CSSFILE]: Copy the CSS file to `docs/` (default is `qdox.css`)
 
 Description:
@@ -139,29 +141,34 @@ class QdoxError(Exception):
 E_OK = 0
 E_ERROR = 1
 
-def _main(argv:list[str]=sys.argv) -> int:
+def _main(argv:list[str]) -> int:
 
     main.DEBUG = False
     withcss = False
+    tomlfile = "pyproject.toml"
 
-    if len(sys.argv) == 1:
+    if len(argv) == 0:
         print([x for x in __doc__.split("\n") if x.startswith("Syntax: ")][0])
         return 0
 
-    if sys.argv[1] in ["-h","--help","help"]:
+    if argv[0] in ["-h","--help","help"]:
         print(__doc__)
         return 1
 
-    for arg in argv[1:]:
+    for arg in argv:
         key,value = arg.split("=",1) if "=" in arg else (arg,None)
         if arg == "--debug":
             main.DEBUG = True
         elif key == "--withcss":
-            withcss = value if value else "qdox.css"
+            if not __spec__:
+                raise QdoxError("you must use --withcss=FILE when running in Python")
+            withcss = value if value else os.path.join(os.path.dirname(__spec__.origin),"qdox.css")
+        elif key == "--tomlfile":
+            tomlfile = value if value else tomlfile
         elif arg != "-":
             raise QdoxError(f"invalid option '{arg}'")
 
-    with open("pyproject.toml","rb") as fh:
+    with open(tomlfile,"rb") as fh:
         package = tomllib.load(fh)["project"]
         homepage = package["urls"]["Homepage"]
         for item,key in {"authors":"name","maintainers":"name"}.items():
@@ -271,7 +278,7 @@ def _main(argv:list[str]=sys.argv) -> int:
     <head>
         <title>{package_name}</title>
         <meta name="expires" content="86400" />
-        <link rel="stylesheet" href="{withcss if withcss else 'qdox.css'}">
+        <link rel="stylesheet" href="{os.path.basename(withcss) if withcss else 'qdox.css'}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
@@ -431,7 +438,7 @@ def _main(argv:list[str]=sys.argv) -> int:
 
     return E_OK
 
-def main(argv:list[str]=sys.argv) -> int:
+def main(argv:list[str]=sys.argv[1:]) -> int:
     """Main CLI
 
     Runs the main `qdox` program. Generates the `docs/index.html` from
@@ -459,7 +466,7 @@ def main(argv:list[str]=sys.argv) -> int:
         rc = _main(argv)
     except Exception:
         e_type,e_value,_ = sys.exc_info()
-        print(f"ERROR [{os.path.basename(sys.argv[0])} {e_type.__name__}]:" +
+        print(f"ERROR [qdox/{os.path.basename(sys.argv[0])}:{e_type.__name__}]:" +
             f" {e_value}",file=sys.stderr,flush=True)
         if main.DEBUG:
             raise
@@ -467,4 +474,4 @@ def main(argv:list[str]=sys.argv) -> int:
     return rc
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))
