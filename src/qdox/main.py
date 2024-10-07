@@ -97,6 +97,11 @@ Text Formatting:
     * ``text``: `code` text
 
     * `protocol://url/`: protocol://url/ formatting with active link
+
+Pro-tip:
+
+    The module you are documenting must be installed in the active Python
+    environment for `qdox` to read information about the module. 
 """
 
 #
@@ -149,11 +154,11 @@ def _main(argv:list[str]) -> int:
 
     if len(argv) == 0:
         print([x for x in __doc__.split("\n") if x.startswith("Syntax: ")][0])
-        return 0
+        return E_OK
 
     if argv[0] in ["-h","--help","help"]:
         print(__doc__)
-        return 1
+        return E_ERROR
 
     for arg in argv:
         key,value = arg.split("=",1) if "=" in arg else (arg,None)
@@ -275,7 +280,7 @@ def _main(argv:list[str]) -> int:
             return set_mode.mode
 
         def write_class(name,value):
-            if isinstance(value.__doc__,str):
+            if isinstance(value.__doc__,str) and hasattr(value.__init__,"__annotations__"):
                 write_html(f"""\n<h2 class="w3-container"><code><b>{name}</b>(""")
                 args = [(f"<b>{str(a)}</b>:" +
                         re.sub(r'([A-Za-z]+)',r'<i>\1</i>',b.__name__)
@@ -303,8 +308,6 @@ def _main(argv:list[str]) -> int:
                     else:
                         set_mode(None)
                         write_html(f"{line}",md=True,nl=True)
-            else:
-                print(f"WARNING: class '{name}' has no __doc__")
 
             for item in dir(value):
                 if item.startswith("_"):
@@ -316,7 +319,7 @@ def _main(argv:list[str]) -> int:
                 set_mode(None)
 
         def write_method(name,value):
-            if isinstance(value.__doc__,str):
+            if isinstance(value.__doc__,str) and hasattr(value,"__annotations__"):
                 write_html(f"""\n<h3 class="w3-container"><code><b>{name}</b>(""")
                 args = [(f"<b>{str(a)}</b>:" +
                         re.sub(r'([A-Za-z]+)',r'<i>\1</i>',b.__name__)
@@ -350,8 +353,6 @@ def _main(argv:list[str]) -> int:
                     else:
                         set_mode(None)
                         write_html(f"{line}",md=True,nl=True)
-            else:
-                print(f"WARNING: method '{name}' has no __doc__")
 
         def write_function(name,value):
             if isinstance(value.__doc__,str):
