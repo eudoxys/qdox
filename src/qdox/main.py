@@ -332,7 +332,7 @@ def _main(argv:list[str]) -> int:
                             write_html(f"<li>{part[0]}</li>",md=True,nl=True)
                     elif line.startswith("        ") and line.strip().endswith(":"):
                         set_mode(None)
-                        write_html(f"""<h3 class="w3-container">{line.strip()[:-1]}</h3>""",nl=True)
+                        write_html(f"""<h4 class="w3-container">{line.strip()[:-1]}</h4>""",nl=True)
                     else:
                         set_mode(None)
                         write_html(line,md=True,nl=True)
