@@ -102,6 +102,9 @@ Pro-tip:
 
     The module you are documenting must be installed in the active Python
     environment for `qdox` to read information about the module. 
+
+    If you want to output a colon at the end of a paragraph rather than a
+    heading, place a space after the colon and before the end-of-line.
 """
 
 #
@@ -290,7 +293,7 @@ def _main(argv:list[str]) -> int:
                 write_html(")")
                 write_html("</code></h2>\n<p/>")
 
-                for line in value.__doc__.split("\n"):
+                for line in value.__init__.__doc__.split("\n"):
                     if len(line) == 0:
                         if get_mode() is None:
                             write_html("<p/>")
@@ -299,7 +302,7 @@ def _main(argv:list[str]) -> int:
                         write_html(f"""<h3 class="w3-container">{line.strip()[:-1]}</h3>""",nl=True)
                     elif line.startswith("        "):
                         set_mode("ul")
-                        part = line.strip().split(":",1)
+                        part = line.strip().split(": ",1)
                         if len(part) == 2:
                             write_html(f"<li><code>{part[0]}</code>: ",md=False,nl=False)
                             write_html(f"{part[1]}</li>",nl=True)
@@ -339,12 +342,12 @@ def _main(argv:list[str]) -> int:
                     if len(line) == 0:
                         if get_mode() is None:
                             write_html("<p/>")
-                    elif line.startswith("    ") and line.strip().endswith(":"):
+                    elif line.startswith("        ") and line.strip().endswith(":"):
                         set_mode(None)
                         write_html(f"""<h4 class="w3-container">{line.strip()[:-1]}</h4>""",nl=True)
-                    elif line.startswith("        "):
+                    elif line.startswith("            "):
                         set_mode("ul")
-                        part = line.strip().split(":",1)
+                        part = line.strip().split(": ",1)
                         if len(part) == 2:
                             write_html(f"<li><code>{part[0]}</code>: ",md=False,nl=False)
                             write_html(f"{part[1]}</li>",nl=True)
@@ -380,7 +383,7 @@ def _main(argv:list[str]) -> int:
                         write_html(f"""<h3 class="w3-container">{line.strip()[:-1]}</h3>""",nl=True)
                     elif line.startswith("        "):
                         set_mode("ul")
-                        part = line.strip().split(":",1)
+                        part = line.strip().split(": ",1)
                         if len(part) == 2:
                             write_html(f"<li><code>{part[0]}</code>: ",md=False,nl=False)
                             write_html(f"{part[1]}</li>",nl=True)
@@ -450,8 +453,8 @@ def _main(argv:list[str]) -> int:
             elif line.startswith("    * "):
                 set_mode("ul")
                 line = line.split('*',1)[1][1:]
-                if ":" in line:
-                    part = line.split(":",1)
+                if ": " in line:
+                    part = line.split(": ",1)
                     set_mode("li")
                     write_html(f"\n<code>{part[0]}</code>: {part[1]}")
                 elif line.strip():
