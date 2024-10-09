@@ -493,7 +493,7 @@ def _main(argv:list[str]) -> int:
                 continue
             value = getattr(module,name)
             set_mode(None)
-            if type(value) is type:
+            if isinstance(value,type):
                 write_class(name,value)
             elif callable(value):
                 write_function(name,value)
