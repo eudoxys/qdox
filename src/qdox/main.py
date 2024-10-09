@@ -98,10 +98,13 @@ Text Formatting:
 
     * `protocol://url/`: protocol://url/ formatting with active link
 
-Pro-tip:
+Pro-tips:
 
     The module you are documenting must be installed in the active Python
     environment for `qdox` to read information about the module. 
+
+    If you want to output a colon at the end of a paragraph rather than a
+    heading, place a space after the colon and before the end-of-line.
 """
 
 #
@@ -253,13 +256,13 @@ def _main(argv:list[str]) -> int:
             if set_mode.pre:
                 write_html("</pre>")
                 set_mode.pre = False
+            if set_mode.li:
+                write_html("</li>")
+                set_mode.li = False
             if m == "li":
                 write_html("<li>")
                 set_mode.li = True
                 return old
-            if set_mode.li:
-                write_html("</li>")
-                set_mode.li = False
             if set_mode.mode and set_mode.mode != m:
                 set_mode.pre = False
                 if set_mode.mode in ["ul","ol"]:
@@ -287,7 +290,7 @@ def _main(argv:list[str]) -> int:
                             write_html("<p/>")
                     elif line.startswith("        "):
                         set_mode("ul")
-                        part = line.strip().split(":",1)
+                        part = line.strip().split(": ",1)
                         if len(part) == 2:
                             write_html(f"<li><code>{part[0]}</code>: ",md=False,nl=False)
                             write_html(f"{part[1]}</li>",nl=True)
@@ -321,7 +324,7 @@ def _main(argv:list[str]) -> int:
                             write_html("<p/>")
                     elif line.startswith("            "):
                         set_mode("ul")
-                        part = line.strip().split(":",1)
+                        part = line.strip().split(": ",1)
                         if len(part) == 2:
                             write_html(f"<li><code>{part[0]}</code>: ",md=False,nl=False)
                             write_html(f"{part[1]}</li>",nl=True)
@@ -402,7 +405,7 @@ def _main(argv:list[str]) -> int:
                             write_html("<p/>")
                     elif line.startswith("        "):
                         set_mode("ul")
-                        part = line.strip().split(":",1)
+                        part = line.strip().split(": ",1)
                         if len(part) == 2:
                             write_html(f"<li><code>{part[0]}</code>: ",md=False,nl=False)
                             write_html(f"{part[1]}</li>",nl=True)
@@ -481,8 +484,8 @@ def _main(argv:list[str]) -> int:
             elif line.startswith("    * "):
                 set_mode("ul")
                 line = line.split('*',1)[1][1:]
-                if ":" in line:
-                    part = line.split(":",1)
+                if ": " in line:
+                    part = line.split(": ",1)
                     set_mode("li")
                     write_html(f"\n<code>{part[0]}</code>: {part[1]}")
                 elif line.strip():
@@ -521,13 +524,13 @@ def _main(argv:list[str]) -> int:
                 continue
             value = getattr(module,name)
             set_mode(None)
-            if type(value) is type:
+            if isinstance(value,type):
                 write_class(name,value)
             elif callable(value):
                 write_function(name,value)
             set_mode(None)
 
-        # document metadata
+        # document constants
         constant_header = False
         for name in dir(module):
             if name.startswith("__"):
@@ -537,8 +540,9 @@ def _main(argv:list[str]) -> int:
                 if not constant_header:
                     write_html("""<h2 class="w3-container">Python Constants</h2>""")
                     constant_header = True
-                write_html(f"<p/>`{name} = {value}`")
+                write_html(f"<p/>`{name} = {repr(value)}`")
 
+        # document metadata
         write_html("""\n<h1 id="package" class="w3-container">Package Metadata</h1>\n""")
         write_html("""<p/><table class="w3-container">\n""")
         for key,data in package.items():
