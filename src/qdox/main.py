@@ -98,7 +98,7 @@ Text Formatting:
 
     * `protocol://url/`: protocol://url/ formatting with active link
 
-Pro-tip:
+Pro-tips:
 
     The module you are documenting must be installed in the active Python
     environment for `qdox` to read information about the module. 
@@ -499,7 +499,7 @@ def _main(argv:list[str]) -> int:
                 write_function(name,value)
             set_mode(None)
 
-        # document metadata
+        # document constants
         constant_header = False
         for name in dir(module):
             if name.startswith("__"):
@@ -509,8 +509,9 @@ def _main(argv:list[str]) -> int:
                 if not constant_header:
                     write_html("""<h2 class="w3-container">Python Constants</h2>""")
                     constant_header = True
-                write_html(f"<p/>`{name} = {value}`")
+                write_html(f"<p/>`{name} = {repr(value)}`")
 
+        # document metadata
         write_html("""\n<h1 id="package" class="w3-container">Package Metadata</h1>\n""")
         write_html("""<p/><table class="w3-container">\n""")
         for key,data in package.items():
