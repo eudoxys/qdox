@@ -32,11 +32,11 @@ Generate docs/index.html from module contents and metadata
 <p/>Syntax: <code>qdox [OPTION ...]</code><p/>
 <h2 class="w3-container">Options</h2>
 <p/><ul><li>
-<code>-</code>:  run with no options</li><li>
-<code>--debug</code>:  Enable debugging traceback on exceptions</li><li>
-<code>-h|--help|help</code>:  Display this help information</li><li>
-<code>--tomlfile=TOMFILE</code>:  Use TOMFILE instead of "pyproject.toml"</li><li>
-<code>--withcss[=CSSFILE]</code>:  Copy the CSS file to <code>docs/</code> (default is <code>qdox.css</code>)</li></li>
+<code>-</code>: run with no options</li><li>
+<code>--debug</code>: Enable debugging traceback on exceptions</li><li>
+<code>-h|--help|help</code>: Display this help information</li><li>
+<code>--tomlfile=TOMFILE</code>: Use TOMFILE instead of "pyproject.toml"</li><li>
+<code>--withcss[=CSSFILE]</code>: Copy the CSS file to <code>docs/</code> (default is <code>qdox.css</code>)</li></li>
 </ul>
 
 <h2 class="w3-container">Description</h2>
@@ -52,9 +52,9 @@ Generate docs/index.html from module contents and metadata
   documentation to <code>github.io</code> or to your own custom site by setting the
   following options in your project <code>Settings-->Pages</code>:
 <p/><ul><li>
-<code><code>Source</code></code>:  Choose <b>Deploy from a branch</b></li><li>
-<code><code>Branch</code></code>:  Choose <b>main</b> and <b>/docs</b>.</li><li>
-<code><code>Custom domain</code></code>:  Enter one if you have one.</li></li>
+<code><code>Source</code></code>: Choose <b>Deploy from a branch</b></li><li>
+<code><code>Branch</code></code>: Choose <b>main</b> and <b>/docs</b>.</li><li>
+<code><code>Custom domain</code></code>: Enter one if you have one.</li></li>
 </ul>
 
 <h2 class="w3-container">Usage</h2>
@@ -65,33 +65,39 @@ Generate docs/index.html from module contents and metadata
 <h2 class="w3-container">Text Formatting</h2>
 <p/>  Text encoding includes the following
 <p/><ul><li>
-<code><code>Syntax</code>:  text</code>: Syntax text</li><li>
-<code><code>text</code>: </code>: Level 2 heading text in module docs or level 3 in function docs</li><li>
-<code><code>(blank line)</code></code>:  New paragraph</li><li>
-<code><code>(four spaces)text</code></code>:  Preformatted text</li><li>
-<code><code>(four spaces)*(space)text</code></code>:  Bulleted list text</li><li>
-<code><code>(four spaces)(digit)(space)text</code></code>:  Numbered list item</li><li>
-<code><code>(seven spaces)text</code></code>:  List item text continuation</li><li>
-<code><code>(nine spaces)text</code></code>:  Preformatted text in a list item</li><li>
-<code><code>**text**</code></code>:  <b>Bold</b> text</li><li>
-<code><code>*text*</code></code>:  <i>Italic</i> text<pre>
+<code><code>Syntax</code>: text</code>: Syntax text</li><li>
+<code><code>text:</code></code>: Level 2 heading text in module docs or level 3 in function docs</li><li>
+<code><code>(blank line)</code></code>: New paragraph</li><li>
+<code><code>(four spaces)text</code></code>: Preformatted text</li><li>
+<code><code>(four spaces)*(space)text</code></code>: Bulleted list text</li><li>
+<code><code>(four spaces)(digit)(space)text</code></code>: Numbered list item</li><li>
+<code><code>(seven spaces)text</code></code>: List item text continuation</li><li>
+<code><code>(nine spaces)text</code></code>: Preformatted text in a list item</li><li>
+<code><code>**text**</code></code>: <b>Bold</b> text</li><li>
+<code><code>*text*</code></code>: <i>Italic</i> text<pre>
 </pre></li><li>
-<code><code>!!text!!</code></code>:  <font class="highlight">Highlight</font> text</li><li>
-<code><code>~~text~~</code></code>:  <strike>strikeout</strike> text</li><li>
-<code><code>__text__</code></code>:  <u>underline</u> text</li><li>
-<code><code>^word</code></code>:  <sup>superscript</sup> word (ends at space)<pre>
+<code><code>!!text!!</code></code>: <font class="highlight">Highlight</font> text</li><li>
+<code><code>~~text~~</code></code>: <strike>strikeout</strike> text</li><li>
+<code><code>__text__</code></code>: <u>underline</u> text</li><li>
+<code><code>^word</code></code>: <sup>superscript</sup> word (ends at space)<pre>
 </pre></li><li>
-<code><code>_word</code></code>:  <sub>subscript</sub> word (ends at space)</li><li>
-<code>`text`</code>:  <code>code</code> text</li><li>
-<code><code>protocol</code>: //url/</code>: <a href="protocol://url/" target="_tab">protocol://url/</a> formatting with active link</li></li>
+<code><code>_word</code></code>: <sub>subscript</sub> word (ends at space)</li><li>
+<code>`text`</code>: <code>code</code> text</li><li>
+<code><code>protocol://url/</code></code>: <a href="protocol://url/" target="_tab">protocol://url/</a> formatting with active link</li></li>
 </ul>
 
+<h2 class="w3-container">Pro-tips</h2>
+<p/><pre>The module you are documenting must be installed in the active Python
+environment for <code>qdox</code> to read information about the module. 
+<p/>If you want to output a colon at the end of a paragraph rather than a
+heading, place a space after the colon and before the end-of-line.
+<p/></pre>
 <h1 id="python" class="w3-container">Python Library</h1>
 
 <h1 id="package" class="w3-container">Package Metadata</h1>
 <p/><table class="w3-container">
 <tr><th><nobr>Name</nobr></th><td>:</td><td>qdox</td></tr>
-<tr><th><nobr>Version</nobr></th><td>:</td><td>0.0.0a3</td></tr>
+<tr><th><nobr>Version</nobr></th><td>:</td><td>0.0.0a4</td></tr>
 <tr><th><nobr>Description</nobr></th><td>:</td><td>Generate quick documentation for a Python project on GitHub</td></tr>
 <tr><th><nobr>Authors</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>
 <tr><th><nobr>Maintainers</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>
