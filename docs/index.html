@@ -1,0 +1,234 @@
+<!doctype html>
+    <html>
+    <head>
+        <title>Qdox</title>
+        <meta name="expires" content="86400" />
+        <link rel="stylesheet" href="qdox.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:180px">
+      <center>
+        <img src="https://avatars.githubusercontent.com/u/21315775?v=4" height="128px" width="128px"/>
+        <br/><a href="https://github.com/eudoxys">Eudoxys Sciences LLC</a>
+        <br/><a href="https://github.com/eudoxys"></a>
+      </center>
+      <title class="w3-bar-item">qdox</title>
+      <a href="#main" class="w3-bar-item w3-button">Command Line</a>
+      <a href="#python" class="w3-bar-item w3-button">Python Library</a>
+      <a href="#package" class="w3-bar-item w3-button">Package Metadata</a>
+    </div>
+
+    <!-- Page Content -->
+    <div style="margin-left:220px">
+
+    <h1 id="main" class="w3-container">Command Line</h1>
+
+    <p/>
+
+
+<h2 class="w3-container">qdox</h2>
+<p/>
+Generate <code>docs/index.html</code> from module contents and metadata
+<p/>
+Syntax: <code>qdox [OPTION ...]</code>
+<p/>
+
+
+<h4 class="w3-container">Options</h4>
+<p/>
+<dt><code>-</code>:</dt>
+<dd>run with no options</dd>
+<dt><code>--debug</code>:</dt>
+<dd>Enable debugging traceback on exceptions</dd>
+<dt><code>-h|--help|help</code>:</dt>
+<dd>Display this help information</dd>
+<dt><code>--tomlfile=TOMFILE</code>:</dt>
+<dd>Use <code>TOMFILE</code> instead of "pyproject.toml"</dd>
+<dt><code>--withcss[=CSSFILE]</code>:</dt>
+<dd>Copy <code>CSSFILE</code> file to the <code>docs</code> folder      (default is <code>qdox.css</code>)
+</dd>
+
+
+<h4 class="w3-container">Description</h4>
+<p/>
+  The <code>qdox</code> command generates the documentation for a simple Python
+  project. The formatting is designed to use simple text layout as the input
+  so that the same documentation source can be used for both Python <code>help()</code>
+  output and the documentation pages.
+<p/>
+  The command loads the module specified in the <code>pyproject.toml</code> file and
+  outputs the <code>__doc__</code> property of the module as the command line
+  documentation. It then outputs the python functions and constants,
+  followed by the project metadata.
+<p/>
+  You can use your project's <code>pages-build-deployment</code> workflow to deploy the
+  documentation to <code>github.io</code> or to your own custom site by setting the
+  following options in your project <code>Settings-->Pages</code>.
+<p/>
+<ul><li><code>Source</code>: Choose <b>Deploy from a branch</b></li>
+<li><code>Branch</code>: Choose <b>main</b> and <b>/docs</b>.</li>
+<li><code>Custom domain</code>: Enter one if you have one.</li>
+</None>
+
+</ul>
+
+
+
+
+<h4 class="w3-container">Usage</h4>
+<p/>
+  To use <code>qdox</code> in a project you must do the following:
+<p/>
+<ol><li>Install <code>qdox</code> from the repo into the current <code>venv</code> by running the       command
+<pre>python3 -m pip install git+https://github.com/dchassin/qdox
+</pre>
+</li>
+<li>Run <code>qdox</code> in the project root folder by running the command<pre>qdox -
+       If you want to include a CSS file, use the option <code>--withcss=CSSFILE</code>, e.g.,
+qdox --withcss=mystyles.css
+       The <code>CSSFILE</code> defaults to <code>qdox.css</code> when omitted.
+</pre>
+</li>
+<li>Add/push the new files to GitHub by running the commands<pre>git commit -a -m "Add docs"
+git push
+</pre>
+</li>
+</None>
+
+</ol>
+
+
+
+
+<h4 class="w3-container">Text Formatting</h4>
+<p/>
+  Text encoding includes the following:
+<p/>
+<dt><code>Syntax[COLON] text</code>:</dt>
+<dd>Syntax text</dd>
+<dt><code>text[COLON]</code>:</dt>
+<dd>Level 2 heading text in module docs or level 3 in function docs</dd>
+<dt><code>[NEWLINE]</code>:</dt>
+<dd>New paragraph</dd>
+<dt>`[4 SPACES]*[SPACE]text:</dt>
+<dd>Bulleted list text</dd>
+<dt>`[4 SPACES][DIGIT].[SPACE]text:</dt>
+<dd>Numbered list item</dd>
+<dt><code>[4 SPACES]label[COLON] text</code>:</dt>
+<dd>Preformatted text</dd>
+<dt><code>[6 SPACES]text</code>:</dt>
+<dd>List item text continuation</dd>
+<dt>`[8 SPACES]text:</dt>
+<dd>Preformatted text</dd>
+<dt><code>**text**</code>:</dt>
+<dd><b>Bold</b> text</dd>
+<dt><code>*text*</code>:</dt>
+<dd><i>Italic</i> text</dd>
+<dt><code>!!text!!</code>:</dt>
+<dd><font class="highlight">Highlight</font> text</dd>
+<dt><code>~~text~~</code>:</dt>
+<dd><strike>strikeout</strike> text</dd>
+<dt><code>__text__</code>:</dt>
+<dd><u>underline</u> text</dd>
+<dt><code>^text</code>:</dt>
+<dd><sup>superscript</sup> word (ends at space)</dd>
+<dt><code>_text</code>:</dt>
+<dd><sub>subscript</sub> word (ends at space)</dd>
+<dt><code>[TIC]text[TIC]</code>:</dt>
+<dd><code>code</code> text</dd>
+<dt><code>protocol[COLON]//url/</code>:</dt>
+<dd><code>protocol://url/</code> formatting with active link</dd>
+
+
+<h4 class="w3-container">Pro-tips</h4>
+<p/>
+  The module you are documenting must be installed in the active Python
+  environment for <code>qdox</code> to read information about the module.
+<p/>
+  If you want to output a colon at the end of a paragraph rather than a
+  heading, place a space after the colon and before the end-of-line.
+<p/>
+
+
+<h1 id="python" class="w3-container">Python Library</h1>
+
+
+<h2 class="w3-container">Class qdox.QdoxError(Exception)</h2>
+<p/>
+Error caused by an invalid or missing command line option
+
+
+<h2 id="python" class="w3-container">Module Functions</h2>
+
+
+<h3 class="w3-container"><code><b>main</b>(<b>argv</b>:<i>list</i>) &rightarrow; <i>int</i></code></h3>
+<p/>
+Command line interface
+<p/>
+Runs the main <code>qdox</code> program. Generates the <code>docs/index.html</code> from
+the <code>README.md</code> file and from the module created using the
+<code>pyproject.toml</code> file.  If the <code>WITHCSS</code> is set to a file that exists, it
+also copies that file to the <code>docs/</code> folder and references it in the HTML
+file.
+<p/>
+
+
+<h4 class="w3-container">Arguments</h4>
+<p/>
+<dt>argv (list[str]):</dt>
+<dd>argument list (default is sys.argv)</dd>
+
+
+<h4 class="w3-container">Returns</h4>
+<p/>
+<dt>int:</dt>
+<dd>exit code</dd>
+
+
+<h4 class="w3-container">Properties</h4>
+<p/>
+<dt>DEBUG (bool):</dt>
+<dd>enable debugging traceback on exception</dd>
+<dt>WITHCSS (str):</dt>
+<dd>enable copying CSS file to <code>docs/</code></dd>
+
+
+<h4 class="w3-container">Exceptions</h4>
+<p/>
+<dt>Exception:</dt>
+<dd>exceptions are only raised if <code>DEBUG</code> is <code>True</code>.</dd>
+<dt>FileNotFoundError:</dt>
+<dd>exception raised when an input file is not found.</dd>
+<dt>QdoxError:</dt>
+<dd>exception raised when an invalid command argument is encountered.</dd>
+
+
+<h2 class="w3-container">Module Variables</h2><p/>
+<code>E_ERROR = 1</code><p/>
+<code>E_OK = 0</code><p/>
+<code>E_SYNTAX = 2</code>
+
+<h1 id="package" class="w3-container">Package Metadata</h1>
+<p/>
+<table class="w3-container">
+<tr><th><nobr>Name</nobr></th><td>:</td><td>qdox</td></tr>
+<tr><th><nobr>Version</nobr></th><td>:</td><td>0.0.0a5</td></tr>
+<tr><th><nobr>Description</nobr></th><td>:</td><td>Generate quick documentation for a Python project on GitHub</td></tr>
+<tr><th><nobr>Authors</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>
+<tr><th><nobr>Maintainers</nobr></th><td>:</td><td>David P. Chassin <dpchassin@gmail.com></td></tr>
+<tr><th><nobr>Requires-Python</nobr></th><td>:</td><td>>= 3.11</td></tr>
+<tr><th><nobr>Dependencies</nobr></th><td>:</td><td>requests<br/>tomli</td></tr>
+<tr><th><nobr>Keywords</nobr></th><td>:</td><td>github<br/>python<br/>documentation</td></tr>
+<tr><th><nobr>License</nobr></th><td>:</td><td>MIT License</td></tr>
+<tr><th><nobr>Classifiers</nobr></th><td>:</td><td>Development Status :: 3 - Alpha<br/>Intended Audience :: Developers<br/>License :: OSI Approved :: MIT License<br/>Programming Language :: Python :: 3 :: Only<br/>Topic :: Software Development :: Libraries</td></tr>
+<tr><th><nobr>Urls</nobr></th><td>:</td><td>Homepage = https://github.com/eudoxys/qdox<br/>Documentation = https://www.eudoxys.com/qdox<br/>Repository = https://github.com/eudoxys/qdox.git<br/>Issues = https://github.com/eudoxys/qdox/issues</td></tr>
+<tr><th><nobr>Scripts</nobr></th><td>:</td><td><code>qdox</code> &rightarrow; <code>main()</code></td></tr>
+</table>
+
+
+<hr/><p/><cite>Copyright &copy; 2025 Eudoxys Sciences LLC</body>
+            </html>
