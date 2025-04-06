@@ -318,7 +318,7 @@ def _main(argv:list[str]) -> int:
             if not hasattr(value,"__doc__") or not isinstance(value.__doc__,str):
                 return
             if name:
-                write_html(f"""\n\n<h2 class="w3-container">{name}</h2>\n<p/>\n""")
+                write_html(f"""\n\n<h2 class="w3-container">{name}</h2>\n<p/>\n""",md=False,)
 
             for line in value.__doc__.split("\n"):
 
