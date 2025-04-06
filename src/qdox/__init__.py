@@ -315,6 +315,8 @@ def _main(argv:list[str]) -> int:
             return set_mode.mode
 
         def write_docs(name,value):
+            if not hasattr("__doc__",value):
+                return
             if name:
                 write_html(f"""\n\n<h2 class="w3-container">{name}</h2>\n<p/>\n""")
 
@@ -425,14 +427,14 @@ def _main(argv:list[str]) -> int:
 
         def write_method(name,value):
             set_mode(None)
-            write_args(name,value)
             if "__doc__" in dir(value):
+                write_args(name,value)
                 write_docs(None,value)
 
         def write_function(name,value):
             set_mode(None)
-            write_args(name,value)
             if "__doc__" in dir(value):
+                write_args(name,value)
                 write_docs(None,value)
             else:
                 print(f"WARNING: function '{name}' has no __doc__")
