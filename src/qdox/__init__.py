@@ -315,7 +315,7 @@ def _main(argv:list[str]) -> int:
             return set_mode.mode
 
         def write_docs(name,value):
-            if not hasattr("__doc__",value):
+            if not hasattr(value,"__doc__"):
                 return
             if name:
                 write_html(f"""\n\n<h2 class="w3-container">{name}</h2>\n<p/>\n""")
