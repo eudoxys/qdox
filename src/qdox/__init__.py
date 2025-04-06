@@ -315,7 +315,7 @@ def _main(argv:list[str]) -> int:
             return set_mode.mode
 
         def write_docs(name,value):
-            if not hasattr(value,"__doc__"):
+            if not hasattr(value,"__doc__") or not isinstance(value.__doc__,str):
                 return
             if name:
                 write_html(f"""\n\n<h2 class="w3-container">{name}</h2>\n<p/>\n""")
@@ -427,13 +427,13 @@ def _main(argv:list[str]) -> int:
 
         def write_method(name,value):
             set_mode(None)
-            if hasattr(value,"__doc__"):
+            if hasattr(value,"__doc__") and isinstance(value.__doc__,str):
                 write_args(name,value)
                 write_docs(None,value)
 
         def write_function(name,value):
             set_mode(None)
-            if hasattr(value,"__doc__"):
+            if hasattr(value,"__doc__") and isinstance(value.__doc__,str):
                 write_args(name,value)
                 write_docs(None,value)
             else:
@@ -478,7 +478,7 @@ def _main(argv:list[str]) -> int:
         set_mode(None)
         for name in sorted([x for x in dir(module) if not x.startswith("_")]):
             value = getattr(module,name)
-            if not hasattr(value,"__doc__"):
+            if not hasattr(value,"__doc__") or not isinstance(value.__doc__,str):
                 continue
             set_mode(None)
             if not library_header:
@@ -491,7 +491,7 @@ def _main(argv:list[str]) -> int:
         function_header = False
         for name in sorted([x for x in dir(module) if not x.startswith("_")]):
             value = getattr(module,name)
-            if not hasattr(value,"__doc__"):
+            if not hasattr(value,"__doc__") or not isinstance(value.__doc__,str):
                 continue
             set_mode(None)
             if not function_header:
