@@ -17,6 +17,20 @@ h3 {
     text-decoration: underline;
 }
 
+h4 {
+    font-weight: bold;
+    text-style: italic;
+}
+
+h5 {
+    text-style: italic;
+}
+
+ol,ul
+{
+    margin-left: 10px;
+}
+
 li {
     margin-top: 5px;
 }
@@ -41,7 +55,7 @@ pre {
 
 p {
     margin-left: 20px;
-    margin-right: 40px;
+    margin-right: 20px;
 }
 
 font.highlight
@@ -63,4 +77,13 @@ code:hover {
 
 pre:hover {
     background-color: lightblue;
+}
+
+dt {
+    margin-top: 10px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+dd {
+    margin-left: 50px;
 }

@@ -5,11 +5,14 @@
 
 VENV=".venv/bin/activate"
 
-docs/index.html: src/qdox/main.py src/qdox/__init__.py src/qdox/qdox.css Makefile pyproject.toml $(VENV)
+docs/index.html: src/qdox/__init__.py src/qdox/qdox.css Makefile pyproject.toml $(VENV)
 	@echo Updating $@...
-	(source .venv/bin/activate; pylint $< || true)
-	(source .venv/bin/activate; python3 -m pip install .)
-	(source .venv/bin/activate; qdox --withcss --debug)
+	(source $(VENV); pylint $< || true)
+	(source $(VENV); python3 -m pip install .)
+	(source $(VENV); qdox --withcss --debug)
+
+clean:
+	@rm -rf .venv docs/* src/*.egg* build
 
 $(VENV):
 	@echo Creating $@...
