@@ -10,7 +10,7 @@ qdox = ["*.py","*.css"]
 
 [project]
 name = "qdox"
-version = "0.0.0a4"
+version = "0.0.0a5"
 description = "Generate quick documentation for a Python project on GitHub"
 authors = [
     {name = "David P. Chassin <dpchassin@gmail.com>"},
@@ -38,4 +38,4 @@ Repository = "https://github.com/eudoxys/qdox.git"
 Issues = "https://github.com/eudoxys/qdox/issues"
 
 [project.scripts]
-qdox = "qdox.main:main"
+qdox = "qdox:main"
