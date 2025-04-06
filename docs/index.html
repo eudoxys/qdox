@@ -1,7 +1,7 @@
 <!doctype html>
     <html>
     <head>
-        <title>Qdox</title>
+        <title>qdox</title>
         <meta name="expires" content="86400" />
         <link rel="stylesheet" href="qdox.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -114,15 +114,15 @@ git push
 <dd>Level 2 heading text in module docs or level 3 in function docs</dd>
 <dt><code>[NEWLINE]</code>:</dt>
 <dd>New paragraph</dd>
-<dt>`[4 SPACES]*[SPACE]text:</dt>
+<dt><code>[4 SPACES]*[SPACE]text</code>:</dt>
 <dd>Bulleted list text</dd>
-<dt>`[4 SPACES][DIGIT].[SPACE]text:</dt>
+<dt><code>[4 SPACES][DIGIT].[SPACE]text</code>:</dt>
 <dd>Numbered list item</dd>
 <dt><code>[4 SPACES]label[COLON] text</code>:</dt>
 <dd>Preformatted text</dd>
 <dt><code>[6 SPACES]text</code>:</dt>
 <dd>List item text continuation</dd>
-<dt>`[8 SPACES]text:</dt>
+<dt><code>[8 SPACES]text</code>:</dt>
 <dd>Preformatted text</dd>
 <dt><code>**text**</code>:</dt>
 <dd><b>Bold</b> text</dd>
@@ -157,7 +157,7 @@ git push
 <h1 id="python" class="w3-container">Python Library</h1>
 
 
-<h2 class="w3-container">Class qdox.QdoxError(Exception)</h2>
+<h2 class="w3-container">Class qdox(Exception)</h2>
 <p/>
 Error caused by an invalid or missing command line option
 
@@ -179,31 +179,31 @@ file.
 
 <h4 class="w3-container">Arguments</h4>
 <p/>
-<dt>argv (list[str]):</dt>
+<dt><code>argv</code>:</dt>
 <dd>argument list (default is sys.argv)</dd>
 
 
 <h4 class="w3-container">Returns</h4>
 <p/>
-<dt>int:</dt>
+<dt><code>int</code>:</dt>
 <dd>exit code</dd>
 
 
 <h4 class="w3-container">Properties</h4>
 <p/>
-<dt>DEBUG (bool):</dt>
+<dt><code>DEBUG (bool)</code>:</dt>
 <dd>enable debugging traceback on exception</dd>
-<dt>WITHCSS (str):</dt>
+<dt><code>WITHCSS (str)</code>:</dt>
 <dd>enable copying CSS file to <code>docs/</code></dd>
 
 
 <h4 class="w3-container">Exceptions</h4>
 <p/>
-<dt>Exception:</dt>
+<dt><code>Exception</code>:</dt>
 <dd>exceptions are only raised if <code>DEBUG</code> is <code>True</code>.</dd>
-<dt>FileNotFoundError:</dt>
+<dt><code>FileNotFoundError</code>:</dt>
 <dd>exception raised when an input file is not found.</dd>
-<dt>QdoxError:</dt>
+<dt><code>QdoxError</code>:</dt>
 <dd>exception raised when an invalid command argument is encountered.</dd>
 
 
