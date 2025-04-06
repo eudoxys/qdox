@@ -71,9 +71,9 @@ Text Formatting:
 
     `[NEWLINE]`: New paragraph
 
-    `[4 SPACES]*[SPACE]text: Bulleted list text
+    `[4 SPACES]*[SPACE]text`: Bulleted list text
 
-    `[4 SPACES][DIGIT].[SPACE]text: Numbered list item
+    `[4 SPACES][DIGIT].[SPACE]text`: Numbered list item
 
     `[4 SPACES]label[COLON] text`: Preformatted text
 
@@ -389,20 +389,20 @@ def _main(argv:list[str]) -> int:
         def write_args(name,value):
             set_mode(None)
             if isinstance(value.__doc__,str) and hasattr(value,"__annotations__"):
-                write_html(f"""\n\n<h3 class="w3-container"><code><b>{name}</b>(""")
+                write_html(f"""\n\n<h3 class="w3-container"><code><b>{name}</b>(""",md=False,nl=False)
                 args = [(f"<b>{str(a)}</b>:" +
                         re.sub(r'([A-Za-z]+)',r'<i>\1</i>',b.__name__)
                         if hasattr(b,"__name__") else str(b))
                     for a,b in value.__annotations__.items() if not a in ["self","return"]]
-                write_html(", ".join(args))
-                write_html(")")
+                write_html(", ".join(args),md=False,nl=False)
+                write_html(")",md=False,nl=False)
                 try:
                     c = value.__annotations__["return"]
                     c = c.__name__ if hasattr(c,"__name__") else str(c)
-                    write_html(f" &rightarrow; *{c}*")
+                    write_html(f" &rightarrow; *{c}*",nl=False)
                 except KeyError:
                     if value.__name__ != "__init__":
-                        write_html(" &rightarrow; *None*")
+                        write_html(" &rightarrow; *None*",nl=False)
                 write_html("</code></h3>\n<p/>\n")
 
         def write_class(name,value):
