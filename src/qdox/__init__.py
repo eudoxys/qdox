@@ -427,13 +427,13 @@ def _main(argv:list[str]) -> int:
 
         def write_method(name,value):
             set_mode(None)
-            if "__doc__" in dir(value):
+            if hasattr(value,"__doc__"):
                 write_args(name,value)
                 write_docs(None,value)
 
         def write_function(name,value):
             set_mode(None)
-            if "__doc__" in dir(value):
+            if hasattr(value,"__doc__"):
                 write_args(name,value)
                 write_docs(None,value)
             else:
