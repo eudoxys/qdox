@@ -471,7 +471,7 @@ def _main(argv:list[str]) -> int:
     <p/>""",md=False,nl=True)
 
         # document main docs
-        write_docs(__name__,sys.modules[__name__])
+        write_docs(package_name,module)
 
         # document classes
         library_header = False
