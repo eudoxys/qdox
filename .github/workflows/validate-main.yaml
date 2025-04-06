@@ -28,7 +28,7 @@ jobs:
         python3 -m venv .venv
         source .venv/bin/activate
         python3 -m pip install pip --upgrade pylint
-        pylint src/qdox/main.py
+        pylint src/qdox/__init__.py
 
     - name: Validate
       run: |
@@ -57,7 +57,7 @@ jobs:
         python3 -m venv .venv
         source .venv/bin/activate
         python3 -m pip install pip --upgrade pylint
-        pylint src/qdox/main.py
+        pylint src/qdox/__init__.py
 
     - name: Validate
       run: |
@@ -86,7 +86,7 @@ jobs:
         python3 -m venv .venv
         . .venv/scripts/activate
         python3 -m pip install pip --upgrade pylint
-        pylint src/qdox/main.py
+        pylint src/qdox/__init__.py
 
     - name: Validate
       run: |
