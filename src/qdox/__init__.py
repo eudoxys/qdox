@@ -156,7 +156,7 @@ class QdoxError(Exception):
 
 #         Arguments:
 
-#             test: test string
+#             `test`: test string
 #         """
 
 #     def method(self,test:str=None) -> str:
@@ -164,11 +164,11 @@ class QdoxError(Exception):
 
 #         Arguments:
 
-#              test: method string
+#              `test`: method string
 
 #         Returns:
 
-#              str: return value
+#              `str`: return value
 #         """
 #
 # Module constants
@@ -318,7 +318,7 @@ def _main(argv:list[str]) -> int:
             if not hasattr(value,"__doc__") or not isinstance(value.__doc__,str):
                 return
             if name:
-                write_html(f"""\n\n<h2 class="w3-container">{name}</h2>\n<p/>\n""",md=False,)
+                write_html(f"""\n\n<h2 class="w3-container">{name}</h2>\n<p/>\n""",md=False)
 
             for line in value.__doc__.split("\n"):
 
@@ -542,25 +542,25 @@ def main(argv:list[str]=sys.argv[1:]) -> int:
 
     Arguments:
 
-        argv (list[str]): argument list (default is sys.argv)
+        `argv`: argument list (default is sys.argv)
 
     Returns:
 
-        int: exit code
+        `int`: exit code
 
     Properties:
 
-        DEBUG (bool): enable debugging traceback on exception
+        `DEBUG (bool)`: enable debugging traceback on exception
 
-        WITHCSS (str): enable copying CSS file to `docs/`
+        `WITHCSS (str)`: enable copying CSS file to `docs/`
 
     Exceptions:
 
-        Exception: exceptions are only raised if `DEBUG` is `True`.
+        `Exception`: exceptions are only raised if `DEBUG` is `True`.
 
-        FileNotFoundError: exception raised when an input file is not found.
+        `FileNotFoundError`: exception raised when an input file is not found.
 
-        QdoxError: exception raised when an invalid command argument is encountered.
+        `QdoxError`: exception raised when an invalid command argument is encountered.
     """
     try:
 
