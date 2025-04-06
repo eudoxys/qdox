@@ -410,12 +410,12 @@ def _main(argv:list[str]) -> int:
         def write_class(name,value):
             set_mode(None)
             if isinstance(value.__doc__,str):
-                write_docs(f"Class {name}({'' if value.__mro__[1] == object else value.__mro__[1].__name__})",value)
+                write_docs(f"Class {package}({'' if value.__mro__[1] == object else value.__mro__[1].__name__})",value)
                 if "__init__" in dir(value) and hasattr(value.__init__,"__annotations__"):
                     write_method(name,value.__init__)
             for item in [x for x in dir(value) if not x.startswith("_") and x not in dir(value.__mro__[1])]:
                 if callable(getattr(value,item)):
-                    write_method(item,getattr(value,item))
+                    write_method(f"{value.__name__}.{item}",getattr(value,item))
             static_header = False
             set_mode(None)
             for item in [x for x in dir(value) if not x.startswith("_") and x not in dir(value.__mro__[1])]:
@@ -471,7 +471,7 @@ def _main(argv:list[str]) -> int:
     <p/>""",md=False,nl=True)
 
         # document main docs
-        write_docs(package_name,module)
+        write_docs(package,module)
 
         # document classes
         library_header = False
@@ -485,7 +485,7 @@ def _main(argv:list[str]) -> int:
                 write_html("""\n\n<h1 id="python" class="w3-container">Python Library</h1>""",nl=True)
                 library_header = True
             if isinstance(value,type):
-                write_class(f"{__name__}.{name}",value)
+                write_class(f"{package}.{name}",value)
 
         # document functions
         function_header = False
