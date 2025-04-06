@@ -480,11 +480,11 @@ def _main(argv:list[str]) -> int:
             value = getattr(module,name)
             if not hasattr(value,"__doc__") or not isinstance(value.__doc__,str):
                 continue
-            set_mode(None)
-            if not library_header:
-                write_html("""\n\n<h1 id="python" class="w3-container">Python Library</h1>""",nl=True)
-                library_header = True
             if isinstance(value,type):
+                set_mode(None)
+                if not library_header:
+                    write_html("""\n\n<h1 id="python" class="w3-container">Python Library</h1>""",nl=True)
+                    library_header = True
                 write_class(f"{package['name']}.{name}",value)
 
         # document functions
@@ -493,11 +493,11 @@ def _main(argv:list[str]) -> int:
             value = getattr(module,name)
             if not hasattr(value,"__doc__") or not isinstance(value.__doc__,str):
                 continue
-            set_mode(None)
-            if not function_header:
-                write_html("""\n\n<h2 id="python" class="w3-container">Module Functions</h2>""",nl=True)
-                function_header = True
             if not isinstance(value,type) and callable(value):
+                set_mode(None)
+                if not function_header:
+                    write_html("""\n\n<h2 id="python" class="w3-container">Module Functions</h2>""",nl=True)
+                    function_header = True
                 write_function(name,value)
 
         # document constants
