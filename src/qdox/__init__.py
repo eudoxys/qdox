@@ -79,7 +79,7 @@ Text Formatting:
 
     `[6 SPACES]text`: List item text continuation
 
-    `[8 SPACES]text: Preformatted text
+    `[8 SPACES]text`: Preformatted text
 
     `**text**`: **Bold** text
 
