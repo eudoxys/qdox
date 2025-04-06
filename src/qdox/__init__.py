@@ -407,7 +407,6 @@ def _main(argv:list[str]) -> int:
 
         def write_class(name,value):
             set_mode(None)
-            write_html(f"<!-- CLASS  {name} {value} -->")
             if isinstance(value.__doc__,str):
                 write_docs(f"Class {name}({'' if value.__mro__[1] == object else value.__mro__[1].__name__})",value)
                 if "__init__" in dir(value) and hasattr(value.__init__,"__annotations__"):
@@ -426,14 +425,12 @@ def _main(argv:list[str]) -> int:
 
         def write_method(name,value):
             set_mode(None)
-            write_html(f"<!-- METHOD {name} {value} -->")
             write_args(name,value)
             if "__doc__" in dir(value):
                 write_docs(None,value)
 
         def write_function(name,value):
             set_mode(None)
-            write_html(f"<!-- FUNCTION {name} {value} -->")
             write_args(name,value)
             if "__doc__" in dir(value):
                 write_docs(None,value)
