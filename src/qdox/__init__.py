@@ -410,7 +410,7 @@ def _main(argv:list[str]) -> int:
         def write_class(name,value):
             set_mode(None)
             if isinstance(value.__doc__,str):
-                write_docs(f"Class {package}({'' if value.__mro__[1] == object else value.__mro__[1].__name__})",value)
+                write_docs(f"Class {package['name']}({'' if value.__mro__[1] == object else value.__mro__[1].__name__})",value)
                 if "__init__" in dir(value) and hasattr(value.__init__,"__annotations__"):
                     write_method(name,value.__init__)
             for item in [x for x in dir(value) if not x.startswith("_") and x not in dir(value.__mro__[1])]:
@@ -442,7 +442,7 @@ def _main(argv:list[str]) -> int:
         write_html(f"""<!doctype html>
     <html>
     <head>
-        <title>{package_name}</title>
+        <title>{package['name']}</title>
         <meta name="expires" content="86400" />
         <link rel="stylesheet" href="{os.path.basename(withcss) if withcss else 'qdox.css'}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -471,7 +471,7 @@ def _main(argv:list[str]) -> int:
     <p/>""",md=False,nl=True)
 
         # document main docs
-        write_docs(package,module)
+        write_docs(package['name'],module)
 
         # document classes
         library_header = False
@@ -485,7 +485,7 @@ def _main(argv:list[str]) -> int:
                 write_html("""\n\n<h1 id="python" class="w3-container">Python Library</h1>""",nl=True)
                 library_header = True
             if isinstance(value,type):
-                write_class(f"{package}.{name}",value)
+                write_class(f"{package['name']}.{name}",value)
 
         # document functions
         function_header = False
