@@ -253,8 +253,8 @@ def _main(argv:list[str]) -> int:
                     r"~~([^\+]+)~~": [r"<strike>\1</strike>",True],
                     r"__([^\+]+)__": [r"<u>\1</u>",True],
                     r"!!([^\+]+)!!": [r"""<font class="highlight">\1</font>""",True],
-                    r"_([^ ]+)": [r"<sub>\1</sub>",True],
-                    r"\^([^ ]+)": [r"<sup>\1</sup>",True],
+                    # r"_([A-Za-z0-9_]+)": [r"<sub>\1</sub>",True],
+                    r"\^([A-Za-z0-9_]+)": [r"<sup>\1</sup>",True],
                 }
                 hold = []
                 for search,replace in rules.items():
