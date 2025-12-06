@@ -340,18 +340,18 @@ def _main(argv:list[str]) -> int:
                 elif line.startswith(" "*8):
 
                     set_mode("pre")
-                    write_html(line.strip(),md=False,nl=True)
+                    write_html(line[8:],md=False,nl=True)
 
                 elif line.startswith(" "*6): # continued text
 
-                    write_html(line,md=True,nl=True)
+                    write_html(line.strip(),md=True,nl=True)
 
                 elif line.startswith(" "*4): # lists
 
                     line = line.strip()
 
                     # bullets
-                    if line.startswith('* '):
+                    if line.startswith('* ') or line.startswith('- '):
 
                         set_mode("ul")
                         set_mode("li")
