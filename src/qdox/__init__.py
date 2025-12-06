@@ -210,7 +210,10 @@ def _main(argv:list[str]) -> int:
         for item,key in {"authors":"name","maintainers":"name"}.items():
             package[item] = ",".join([x[key] for x in package[item]])
         for item,key in {"license":"text"}.items():
-            package[item] = package[item][key]
+            if isinstance(package[item][key],dict) and "text" in package[item][key]:
+                package[item] = package[item][key]["text"]
+            else:
+                package[item] = package[item][key]
         for item in ["keywords","classifiers","urls","dependencies"]:
             if isinstance(package[item],dict):
                 package[item] = "<br/>".join([f"{x} = {y}" for x,y in package[item].items()])
@@ -410,7 +413,7 @@ def _main(argv:list[str]) -> int:
         def write_class(name,value):
             set_mode(None)
             if isinstance(value.__doc__,str):
-                write_docs(f"Class {package['name']}({'' if value.__mro__[1] == object else value.__mro__[1].__name__})",value)
+                write_docs(f"Class {package['name']}.{value.__name__}({'' if value.__mro__[1] == object else value.__mro__[1].__name__})",value)
                 if "__init__" in dir(value) and hasattr(value.__init__,"__annotations__"):
                     write_method(name,value.__init__)
             for item in [x for x in dir(value) if not x.startswith("_") and x not in dir(value.__mro__[1])]:
@@ -515,12 +518,14 @@ def _main(argv:list[str]) -> int:
         write_html("""\n\n<h1 id="package" class="w3-container">Package Metadata</h1>\n""")
         write_html("""<p/>\n<table class="w3-container">\n""")
         for key,data in package.items():
-            if key in ["Description","Authors","License","Maintainers"] or '`' in data:
+            if key.title() in ["Description","Authors","License","Maintainers","Urls"] or '`' in data:
                 write_html(f"<tr><th><nobr>{key.title()}</nobr></th><td>:</td><td>{data}" +
                     "</td></tr>\n",True)
             else:
                 write_html(f"<tr><th><nobr>{key.title()}</nobr></th><td>:</td><td>{data}" +
                     "</td></tr>\n",False)
+            # write_html(f"<tr><th><nobr>{key.title()}</nobr></th><td>:</td><td>{data}" +
+            #     "</td></tr>\n")
         write_html("</table>\n")
 
         # footer
