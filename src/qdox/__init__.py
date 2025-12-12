@@ -344,7 +344,7 @@ def _main(argv:list[str]) -> int:
 
                 elif line.startswith(" "*6): # continued text
 
-                    write_html(line.strip(),md=True,nl=True)
+                    write_html(line.strip()+" ",md=True,nl=True)
 
                 elif line.startswith(" "*4): # lists
 
