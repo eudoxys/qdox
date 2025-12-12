@@ -205,7 +205,12 @@ def _main(argv:list[str]) -> int:
             raise QdoxError(f"invalid option '{arg}'")
 
     with open(tomlfile,"rb") as fh:
-        package = tomllib.load(fh)["project"]
+        toml = tomllib.load(fh)
+        package = toml["project"]
+        if "dynamic" in package:
+            for dynamic in package["dynamic"]:
+                with open(toml["tool"]["setuptools"]["dynamic"][dynamic]["file"][0],"r") as fh:
+                    package[dynamic] = "<BR/>".join(fh.readlines())
         homepage = package["urls"]["Homepage"]
         for item,key in {"authors":"name","maintainers":"name"}.items():
             package[item] = ",".join([x[key] for x in package[item]])
@@ -215,6 +220,8 @@ def _main(argv:list[str]) -> int:
             else:
                 package[item] = package[item][key]
         for item in ["keywords","classifiers","urls","dependencies"]:
+            if item not in package:
+                continue
             if isinstance(package[item],dict):
                 package[item] = "<br/>".join([f"{x} = {y}" for x,y in package[item].items()])
             elif isinstance(package[item],list):
