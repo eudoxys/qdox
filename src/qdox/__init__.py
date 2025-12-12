@@ -344,7 +344,7 @@ def _main(argv:list[str]) -> int:
 
                 elif line.startswith(" "*6): # continued text
 
-                    write_html(line.strip()+" ",md=True,nl=True)
+                    write_html(line.strip(),md=True,nl=True)
 
                 elif line.startswith(" "*4): # lists
 
@@ -355,23 +355,23 @@ def _main(argv:list[str]) -> int:
 
                         set_mode("ul")
                         set_mode("li")
-                        write_html(line.split(" ",1)[1],md=True,nl=False)
+                        write_html(line.split(" ",1)[1],md=True,nl=True)
 
                     # numbered
                     elif line[0] in "123456789" and line.split(' ',1)[0].endswith("."):
 
                         set_mode("ol")
                         set_mode("li")
-                        write_html(line.split(". ",1)[1],md=True,nl=False)
+                        write_html(line.split(". ",1)[1],md=True,nl=True)
 
                     # definition
                     elif ": " in line:
 
                         part = [x.strip() for x in line.split(": ",1)]
                         set_mode(None)
-                        write_html(f"<dt>{part[0]}:</dt>\n",md=True,nl=False)
+                        write_html(f"<dt>{part[0]}:</dt>\n",md=True,nl=True)
                         set_mode("dd")
-                        write_html(part[1],md=True,nl=False)
+                        write_html(part[1],md=True,nl=True)
 
                     # preformatted
                     else:
@@ -441,6 +441,17 @@ def _main(argv:list[str]) -> int:
                 write_docs(None,value)
             else:
                 print(f"WARNING: function '{name}' has no __doc__")
+
+
+        # def contents_classes(module):
+        #     classes = sorted([x for x in dir(module) 
+        #         if not x.startswith("_") 
+        #         and hasattr(getattr(module,x),"__doc__") 
+        #         and isinstance(getattr(module,x),type)])
+        #     return f"""<li>Classes</li>
+        #         <ul>
+        #             <li>{'</li><li>'.join(classes)}</li>
+        #         </ul>"""
 
         write_html(f"""<!doctype html>
     <html>
